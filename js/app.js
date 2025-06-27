@@ -106,6 +106,17 @@ class DnDLevelUpApp {
             this.updateURL();
         });
 
+        // Enter key on level input
+        document.getElementById('current-level').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const calculateBtn = document.getElementById('calculate-btn');
+                if (!calculateBtn.disabled) {
+                    this.calculateLevelUp();
+                }
+            }
+        });
+
         // Calculate button
         document.getElementById('calculate-btn').addEventListener('click', () => {
             this.calculateLevelUp();
