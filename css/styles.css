@@ -64,6 +64,13 @@ body {
     border-radius: var(--radius-lg);
     box-shadow: 0 8px 32px var(--shadow-dark);
     position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.header:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px var(--shadow-dark);
 }
 
 .header::before {
@@ -355,6 +362,92 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     margin-top: var(--spacing-lg);
+}
+
+/* Class Button Grid */
+.class-button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+}
+
+.class-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-md);
+    border: 2px solid var(--border-gold);
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+    color: var(--text-dark);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 80px;
+    justify-content: center;
+}
+
+.class-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.class-btn:hover::before {
+    left: 100%;
+}
+
+.class-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--shadow-dark);
+    border-color: var(--accent-purple);
+}
+
+.class-btn.selected {
+    background: linear-gradient(135deg, var(--accent-gold), var(--border-gold));
+    color: var(--text-dark);
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 3px var(--shadow-light);
+}
+
+.class-btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.class-btn.disabled:hover {
+    transform: none;
+    box-shadow: 0 4px 8px var(--shadow-dark);
+    border-color: var(--border-gold);
+}
+
+.class-status {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    margin-top: var(--spacing-xs);
+    font-family: var(--font-body);
+}
+
+.class-status.available {
+    color: #2d5a2d;
+    font-weight: 600;
+}
+
+.class-status.coming-soon {
+    color: var(--accent-purple);
+    font-style: italic;
 }
 
 /* Export Section */

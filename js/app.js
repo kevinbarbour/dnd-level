@@ -8,11 +8,19 @@ class DnDLevelUpApp {
 
     // Initialize all event listeners
     initializeEventListeners() {
-        // Class and level selection
-        document.getElementById('class-select').addEventListener('change', () => {
-            this.updateCalculateButton();
+        // Header click to return to homepage
+        document.querySelector('.header').addEventListener('click', () => {
+            this.returnToHomepage();
         });
 
+        // Class button selection
+        document.querySelectorAll('.class-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                this.selectClass(e.target.closest('.class-btn'));
+            });
+        });
+
+        // Level selection
         document.getElementById('current-level').addEventListener('input', () => {
             this.updateCalculateButton();
         });
@@ -40,13 +48,31 @@ class DnDLevelUpApp {
         });
     }
 
+    // Handle class button selection
+    selectClass(button) {
+        // Remove selected class from all buttons
+        document.querySelectorAll('.class-btn').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        
+        // Add selected class to clicked button
+        button.classList.add('selected');
+        
+        // Update hidden input
+        const selectedClass = button.getAttribute('data-class');
+        document.getElementById('selected-class').value = selectedClass;
+        
+        // Update calculate button
+        this.updateCalculateButton();
+    }
+
     // Update the calculate button state
     updateCalculateButton() {
-        const classSelect = document.getElementById('class-select');
+        const selectedClass = document.getElementById('selected-class').value;
         const levelInput = document.getElementById('current-level');
         const calculateBtn = document.getElementById('calculate-btn');
 
-        const hasClass = classSelect.value !== '';
+        const hasClass = selectedClass !== '';
         const hasValidLevel = levelCalculator.validateLevel(levelInput.value);
 
         calculateBtn.disabled = !(hasClass && hasValidLevel);
@@ -55,7 +81,7 @@ class DnDLevelUpApp {
     // Main calculation function
     calculateLevelUp() {
         try {
-            const className = document.getElementById('class-select').value;
+            const className = document.getElementById('selected-class').value;
             const currentLevel = parseInt(document.getElementById('current-level').value);
 
             this.currentLevelUpData = levelCalculator.calculateLevelUp(className, currentLevel);
@@ -223,7 +249,7 @@ class DnDLevelUpApp {
     createSubclassChoice(choice) {
         let html = '<div class="choice-options">';
         choice.options.forEach(option => {
-            const classInfo = classData[document.getElementById('class-select').value];
+            const classInfo = classData[document.getElementById('selected-class').value];
             const subclassInfo = classInfo.subclasses[option];
             const checked = choice.userChoice === option ? 'checked' : '';
             
@@ -403,7 +429,7 @@ class DnDLevelUpApp {
         
         // Update the current data and refresh display
         this.currentLevelUpData = levelCalculator.calculateLevelUp(
-            document.getElementById('class-select').value,
+            document.getElementById('selected-class').value,
             parseInt(document.getElementById('current-level').value)
         );
         
@@ -462,14 +488,40 @@ class DnDLevelUpApp {
         }
     }
 
+    // Return to homepage (banner click)
+    returnToHomepage() {
+        // Hide level-up and export sections
+        this.hideSection('level-up-section');
+        this.hideSection('export-section');
+        
+        // Clear selections but keep data
+        document.querySelectorAll('.class-btn').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        document.getElementById('selected-class').value = '';
+        document.getElementById('current-level').value = '';
+        
+        // Update button state
+        this.updateCalculateButton();
+        
+        // Scroll to top smoothly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     // Reset progress
     resetProgress() {
         if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
             levelCalculator.clearChoices();
             this.hideSection('level-up-section');
             this.hideSection('export-section');
-            document.getElementById('class-select').value = '';
+            
+            // Clear class selection
+            document.querySelectorAll('.class-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            document.getElementById('selected-class').value = '';
             document.getElementById('current-level').value = '';
+            
             this.updateCalculateButton();
             this.showSuccess('Progress reset successfully!');
         }

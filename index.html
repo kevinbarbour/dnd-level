@@ -22,22 +22,58 @@
                 <div class="setup-card">
                     <h2>📜 Character Information</h2>
                     <div class="form-group">
-                        <label for="class-select">Choose Your Class:</label>
-                        <select id="class-select" class="form-control">
-                            <option value="">Select a class...</option>
-                            <option value="barbarian">Barbarian (Fully Available)</option>
-                            <option value="bard">Bard (Coming Soon)</option>
-                            <option value="cleric">Cleric (Coming Soon)</option>
-                            <option value="druid">Druid (Coming Soon)</option>
-                            <option value="fighter">Fighter (Coming Soon)</option>
-                            <option value="monk">Monk (Coming Soon)</option>
-                            <option value="paladin">Paladin (Coming Soon)</option>
-                            <option value="ranger">Ranger (Coming Soon)</option>
-                            <option value="rogue">Rogue (Coming Soon)</option>
-                            <option value="sorcerer">Sorcerer (Coming Soon)</option>
-                            <option value="warlock">Warlock (Coming Soon)</option>
-                            <option value="wizard">Wizard (Coming Soon)</option>
-                        </select>
+                        <label for="class-buttons">Choose Your Class:</label>
+                        <div id="class-buttons" class="class-button-grid">
+                            <button type="button" class="class-btn" data-class="barbarian">
+                                ⚔️ Barbarian
+                                <span class="class-status available">Fully Available</span>
+                            </button>
+                            <button type="button" class="class-btn" data-class="bard">
+                                🎵 Bard
+                                <span class="class-status coming-soon">Coming Soon</span>
+                            </button>
+                            <button type="button" class="class-btn" data-class="cleric">
+                                ⛪ Cleric
+                                <span class="class-status coming-soon">Coming Soon</span>
+                            </button>
+                            <button type="button" class="class-btn" data-class="druid">
+                                🌿 Druid
+                                <span class="class-status coming-soon">Coming Soon</span>
+                            </button>
+                            <button type="button" class="class-btn" data-class="fighter">
+                                🛡️ Fighter
+                                <span class="class-status coming-soon">Coming Soon</span>
+                            </button>
+                            <button type="button" class="class-btn" data-class="monk">
+                                👊 Monk
+                                <span class="class-status coming-soon">Coming Soon</span>
+                            </button>
+                            <button type="button" class="class-btn" data-class="paladin">
+                                ✨ Paladin
+                                <span class="class-status coming-soon">Coming Soon</span>
+                            </button>
+                            <button type="button" class="class-btn" data-class="ranger">
+                                🏹 Ranger
+                                <span class="class-status coming-soon">Coming Soon</span>
+                            </button>
+                            <button type="button" class="class-btn" data-class="rogue">
+                                🗡️ Rogue
+                                <span class="class-status coming-soon">Coming Soon</span>
+                            </button>
+                            <button type="button" class="class-btn" data-class="sorcerer">
+                                🔮 Sorcerer
+                                <span class="class-status coming-soon">Coming Soon</span>
+                            </button>
+                            <button type="button" class="class-btn" data-class="warlock">
+                                👁️ Warlock
+                                <span class="class-status coming-soon">Coming Soon</span>
+                            </button>
+                            <button type="button" class="class-btn" data-class="wizard">
+                                📚 Wizard
+                                <span class="class-status coming-soon">Coming Soon</span>
+                            </button>
+                        </div>
+                        <input type="hidden" id="selected-class" value="">
                     </div>
                     <div class="form-group">
                         <label for="current-level">Current Level:</label>
