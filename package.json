@@ -1,0 +1,38 @@
+{
+  "name": "dnd-5e-2024-level-up-tool",
+  "version": "1.0.0",
+  "description": "A comprehensive character leveling tool for Dungeons & Dragons 5th Edition 2024 rules",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "start": "python -m http.server 8000",
+    "deploy": "vercel",
+    "deploy-prod": "vercel --prod"
+  },
+  "keywords": [
+    "dnd",
+    "dungeons-and-dragons",
+    "5e",
+    "2024",
+    "character",
+    "level-up",
+    "rpg",
+    "tabletop",
+    "gaming"
+  ],
+  "author": "Kevin Barbour",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevinbarbour/dnd-level.git"
+  },
+  "homepage": "https://dnd-level-up-tool.vercel.app",
+  "bugs": {
+    "url": "https://github.com/kevinbarbour/dnd-level/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}
