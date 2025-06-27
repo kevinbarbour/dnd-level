@@ -546,6 +546,62 @@ body {
     text-decoration: underline;
 }
 
+.footer-disclaimer {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+/* Spell Slots Table */
+.spell-slots-table {
+    margin: var(--spacing-sm) 0;
+    overflow-x: auto;
+}
+
+.slots-table {
+    width: auto;
+    max-width: 400px;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid var(--border-gold);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 0;
+}
+
+.slots-table th {
+    background: linear-gradient(135deg, var(--accent-purple), var(--secondary-dark));
+    color: var(--text-light);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    text-align: center;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-bottom: 2px solid var(--border-gold);
+    min-width: 50px;
+}
+
+.slots-table td {
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--text-dark);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+    border-right: 1px solid var(--border-gold);
+    min-width: 50px;
+}
+
+.slots-table td:last-child {
+    border-right: none;
+}
+
+.slots-table tr:hover td {
+    background: rgba(212, 175, 55, 0.2);
+}
+
 /* Utility Classes */
 .hidden {
     display: none !important;

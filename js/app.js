@@ -201,12 +201,35 @@ class DnDLevelUpApp {
             html += `<div class="feature-item mb-sm"><strong>Prepared Spells:</strong> ${info.preparedSpells}</div>`;
         }
         if (info.spellSlots) {
-            let slotsText = '';
-            Object.entries(info.spellSlots).forEach(([level, slots]) => {
-                if (slotsText) slotsText += ', ';
-                slotsText += `${level}${this.getOrdinalSuffix(level)}: ${slots}`;
-            });
-            html += `<div class="feature-item mb-sm"><strong>Spell Slots:</strong> ${slotsText}</div>`;
+            const slotLevels = Object.keys(info.spellSlots);
+            
+            // Use inline format for single spell level (like Warlock), table for multiple levels
+            if (slotLevels.length === 1) {
+                const level = slotLevels[0];
+                const slots = info.spellSlots[level];
+                html += `<div class="feature-item mb-sm"><strong>Spell Slots:</strong> ${level}${this.getOrdinalSuffix(level)} level: ${slots}</div>`;
+            } else {
+                html += `<div class="feature-item mb-sm"><strong>Spell Slots:</strong></div>`;
+                html += '<div class="spell-slots-table">';
+                html += '<table class="slots-table">';
+                html += '<thead><tr>';
+                
+                // Create header row
+                Object.keys(info.spellSlots).forEach(level => {
+                    html += `<th>${level}${this.getOrdinalSuffix(level)}</th>`;
+                });
+                html += '</tr></thead>';
+                
+                // Create data row
+                html += '<tbody><tr>';
+                Object.values(info.spellSlots).forEach(slots => {
+                    html += `<td>${slots}</td>`;
+                });
+                html += '</tr></tbody>';
+                
+                html += '</table>';
+                html += '</div>';
+            }
         }
         
         // Class-specific resources
@@ -233,6 +256,18 @@ class DnDLevelUpApp {
         }
         if (info.invocationsKnown) {
             html += `<div class="feature-item mb-sm"><strong>Eldritch Invocations Known:</strong> ${info.invocationsKnown}</div>`;
+        }
+        if (info.wildShapeUses) {
+            html += `<div class="feature-item mb-sm"><strong>Wild Shape Uses:</strong> ${info.wildShapeUses} per Short/Long Rest</div>`;
+        }
+        if (info.wildShapeCR) {
+            html += `<div class="feature-item mb-sm"><strong>Wild Shape Max CR:</strong> ${info.wildShapeCR}</div>`;
+        }
+        if (info.martialArtsDie) {
+            html += `<div class="feature-item mb-sm"><strong>Martial Arts Die:</strong> ${info.martialArtsDie}</div>`;
+        }
+        if (info.focusPoints) {
+            html += `<div class="feature-item mb-sm"><strong>Focus Points:</strong> ${info.focusPoints}</div>`;
         }
         
         progressDiv.innerHTML = html;
@@ -328,7 +363,9 @@ class DnDLevelUpApp {
             'barbarian': 'Choose your primal path',
             'bard': 'Choose your college',
             'cleric': 'Choose your divine domain',
+            'druid': 'Choose your circle',
             'fighter': 'Choose your martial archetype',
+            'monk': 'Choose your monastic tradition',
             'rogue': 'Choose your roguish archetype',
             'sorcerer': 'Choose your sorcerous origin',
             'warlock': 'Choose your otherworldly patron',

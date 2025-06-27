@@ -979,12 +979,336 @@ const classData = {
         primaryAbility: "Wisdom",
         hitDie: "d8",
         savingThrows: ["Intelligence", "Wisdom"],
+        skillChoices: ["Choose 2: Arcana, Animal Handling, Insight, Medicine, Nature, Perception, Religion, or Survival"],
+        weaponProficiencies: ["Simple weapons"],
+        armorTraining: ["Light and Medium armor and Shields (nonmetal only)"],
         subclassLevel: 3,
         subclasses: {
-            "land": { name: "Circle of the Land", description: "Coming Soon" }
+            "land": {
+                name: "Circle of the Land",
+                description: "Draw Power from the Land Itself"
+            }
         },
-        stub: true,
-        stubMessage: "Full Druid implementation coming soon! This will include Spellcasting, Wild Shape, and Circle features."
+        levels: {
+            1: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Spellcasting",
+                        description: "Cast spells using Wisdom. Know 2 cantrips, prepare 2 level 1 spells + Wisdom modifier"
+                    },
+                    {
+                        name: "Druidcraft",
+                        description: "Know the Druidcraft cantrip (doesn't count against cantrips known)"
+                    },
+                    {
+                        name: "Primal Order",
+                        description: "Choose Magician or Warden",
+                        choices: {
+                            type: "primalOrder",
+                            options: ["Magician (Arcana proficiency + cantrip)", "Warden (Heavy armor + Martial weapons)"]
+                        }
+                    }
+                ],
+                cantrips: 2,
+                preparedSpells: "2 + Wis mod",
+                spellSlots: { 1: 2 }
+            },
+            2: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Wild Shape",
+                        description: "Transform into Beast with CR 1/4 or lower, 2 uses per Short/Long Rest"
+                    },
+                    {
+                        name: "Wild Companion",
+                        description: "Cast Find Familiar as a ritual, familiar must be a Fey"
+                    }
+                ],
+                cantrips: 2,
+                preparedSpells: "3 + Wis mod",
+                spellSlots: { 1: 3 },
+                wildShapeUses: 2,
+                wildShapeCR: "1/4"
+            },
+            3: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Druid Subclass",
+                        description: "Choose your circle",
+                        choices: {
+                            type: "subclass",
+                            options: ["land"]
+                        }
+                    }
+                ],
+                subclassFeatures: {
+                    land: [
+                        {
+                            name: "Circle Spells",
+                            description: "Always have certain spells prepared based on chosen land type",
+                            choices: {
+                                type: "landType",
+                                options: ["Arid", "Coastal", "Forest", "Grassland", "Mountain", "Swamp", "Underdark"]
+                            }
+                        },
+                        {
+                            name: "Land's Aid",
+                            description: "Regain expended spell slot when you finish a Short Rest, once per Long Rest"
+                        }
+                    ]
+                },
+                cantrips: 2,
+                preparedSpells: "4 + Wis mod",
+                spellSlots: { 1: 4, 2: 2 },
+                wildShapeUses: 2,
+                wildShapeCR: "1/2"
+            },
+            4: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    },
+                    {
+                        name: "Wild Shape Improvement",
+                        description: "Can transform into creatures with Swim Speed"
+                    }
+                ],
+                cantrips: 3,
+                preparedSpells: "5 + Wis mod",
+                spellSlots: { 1: 4, 2: 3 },
+                wildShapeUses: 2,
+                wildShapeCR: "1/2"
+            },
+            5: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Wild Resurgence",
+                        description: "Regain expended use of Wild Shape when you cast a level 1+ spell"
+                    }
+                ],
+                cantrips: 3,
+                preparedSpells: "6 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 2 },
+                wildShapeUses: 2,
+                wildShapeCR: "1"
+            },
+            6: {
+                proficiencyBonus: 3,
+                subclassFeatures: {
+                    land: [
+                        {
+                            name: "Natural Recovery",
+                            description: "Regain spell slots totaling half Druid level during Short Rest, once per Long Rest"
+                        }
+                    ]
+                },
+                cantrips: 3,
+                preparedSpells: "7 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3 },
+                wildShapeUses: 2,
+                wildShapeCR: "1"
+            },
+            7: {
+                proficiencyBonus: 3,
+                cantrips: 3,
+                preparedSpells: "8 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 1 },
+                wildShapeUses: 2,
+                wildShapeCR: "1"
+            },
+            8: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    },
+                    {
+                        name: "Wild Shape Improvement",
+                        description: "Can transform into creatures with Fly Speed"
+                    }
+                ],
+                cantrips: 3,
+                preparedSpells: "9 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 2 },
+                wildShapeUses: 2,
+                wildShapeCR: "1"
+            },
+            9: {
+                proficiencyBonus: 4,
+                cantrips: 3,
+                preparedSpells: "10 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 1 },
+                wildShapeUses: 2,
+                wildShapeCR: "2"
+            },
+            10: {
+                proficiencyBonus: 4,
+                subclassFeatures: {
+                    land: [
+                        {
+                            name: "Nature's Ward",
+                            description: "Immunity to Poison damage and Poisoned condition; resistance to one damage type"
+                        }
+                    ]
+                },
+                cantrips: 4,
+                preparedSpells: "11 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2 },
+                wildShapeUses: 2,
+                wildShapeCR: "2"
+            },
+            11: {
+                proficiencyBonus: 4,
+                cantrips: 4,
+                preparedSpells: "12 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1 },
+                wildShapeUses: 2,
+                wildShapeCR: "2"
+            },
+            12: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: "12 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1 },
+                wildShapeUses: 2,
+                wildShapeCR: "2"
+            },
+            13: {
+                proficiencyBonus: 5,
+                cantrips: 4,
+                preparedSpells: "13 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1 },
+                wildShapeUses: 2,
+                wildShapeCR: "2"
+            },
+            14: {
+                proficiencyBonus: 5,
+                subclassFeatures: {
+                    land: [
+                        {
+                            name: "Nature's Sanctuary",
+                            description: "Beasts and Plants have Disadvantage on attacks against you; spend spell slot to charm attacking creature"
+                        }
+                    ]
+                },
+                cantrips: 4,
+                preparedSpells: "13 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1 },
+                wildShapeUses: 2,
+                wildShapeCR: "2"
+            },
+            15: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Improved Wild Shape",
+                        description: "No limit on transformation duration; regain half max HP when reverting"
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: "14 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1 },
+                wildShapeUses: 2,
+                wildShapeCR: "3"
+            },
+            16: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: "14 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1 },
+                wildShapeUses: 2,
+                wildShapeCR: "3"
+            },
+            17: {
+                proficiencyBonus: 6,
+                cantrips: 4,
+                preparedSpells: "15 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1, 9: 1 },
+                wildShapeUses: 2,
+                wildShapeCR: "4"
+            },
+            18: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Beast Spells",
+                        description: "Cast spells while in Wild Shape form"
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: "15 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 1, 7: 1, 8: 1, 9: 1 },
+                wildShapeUses: 2,
+                wildShapeCR: "4"
+            },
+            19: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Epic Boon",
+                        description: "Gain an Epic Boon feat",
+                        choices: {
+                            type: "epicBoon",
+                            options: ["Boon of Spell Recall", "Other Epic Boon"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: "15 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 2, 7: 1, 8: 1, 9: 1 },
+                wildShapeUses: 2,
+                wildShapeCR: "4"
+            },
+            20: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Archdruid",
+                        description: "Unlimited Wild Shape uses; cast level 1-3 spells without expending spell slots"
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: "15 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 2, 7: 2, 8: 1, 9: 1 },
+                wildShapeUses: "Unlimited",
+                wildShapeCR: "4"
+            }
+        }
     },
 
     fighter: {
@@ -1329,12 +1653,318 @@ const classData = {
         primaryAbility: "Dexterity and Wisdom",
         hitDie: "d8",
         savingThrows: ["Strength", "Dexterity"],
+        skillChoices: ["Choose 2: Acrobatics, Athletics, History, Insight, Religion, or Stealth"],
+        weaponProficiencies: ["Simple weapons and Martial weapons that have the Light property"],
+        armorTraining: ["None"],
         subclassLevel: 3,
         subclasses: {
-            "openhand": { name: "Warrior of the Open Hand", description: "Coming Soon" }
+            "openhand": {
+                name: "Warrior of the Open Hand",
+                description: "Master Unarmed Combat Techniques"
+            }
         },
-        stub: true,
-        stubMessage: "Full Monk implementation coming soon! This will include Martial Arts, Monk's Focus, and Monastic Tradition features."
+        levels: {
+            1: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Martial Arts",
+                        description: "Use Dexterity for attack/damage with Monk weapons and Unarmed Strikes; deal 1d6 damage; Bonus Action Unarmed Strike after Attack action"
+                    },
+                    {
+                        name: "Unarmored Defense",
+                        description: "AC = 10 + Dex modifier + Wis modifier when not wearing armor or using a shield"
+                    }
+                ],
+                martialArtsDie: "1d6",
+                focusPoints: 0
+            },
+            2: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Monk's Focus",
+                        description: "Gain 2 Focus Points to fuel Monk features"
+                    },
+                    {
+                        name: "Patient Defense",
+                        description: "Spend 1 Focus Point to take Dodge action as Bonus Action"
+                    },
+                    {
+                        name: "Step of the Wind",
+                        description: "Spend 1 Focus Point to take Dash or Disengage as Bonus Action; jump distance doubled"
+                    },
+                    {
+                        name: "Uncanny Metabolism",
+                        description: "Regain all Focus Points when you finish a Short or Long Rest"
+                    }
+                ],
+                martialArtsDie: "1d6",
+                focusPoints: 2
+            },
+            3: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Monk Subclass",
+                        description: "Choose your monastic tradition",
+                        choices: {
+                            type: "subclass",
+                            options: ["openhand"]
+                        }
+                    },
+                    {
+                        name: "Deflect Attacks",
+                        description: "Reduce damage from one attack per turn as Reaction; spend Focus Point to redirect as ranged attack"
+                    }
+                ],
+                subclassFeatures: {
+                    openhand: [
+                        {
+                            name: "Open Hand Technique",
+                            description: "When you hit with Flurry of Blows, choose: knock Prone, push 15 feet, or prevent reactions until end of next turn"
+                        }
+                    ]
+                },
+                martialArtsDie: "1d6",
+                focusPoints: 3
+            },
+            4: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    },
+                    {
+                        name: "Slow Fall",
+                        description: "Reduce falling damage by 5 × Monk level when not Incapacitated"
+                    }
+                ],
+                martialArtsDie: "1d8",
+                focusPoints: 4
+            },
+            5: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Extra Attack",
+                        description: "Attack twice when you take the Attack action"
+                    },
+                    {
+                        name: "Stunning Strike",
+                        description: "Spend 1 Focus Point when you hit to force Constitution save or be Stunned until end of next turn"
+                    }
+                ],
+                martialArtsDie: "1d8",
+                focusPoints: 5
+            },
+            6: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Empowered Strikes",
+                        description: "Unarmed Strikes count as magical for overcoming resistances"
+                    }
+                ],
+                subclassFeatures: {
+                    openhand: [
+                        {
+                            name: "Wholeness of Body",
+                            description: "Regain HP equal to Monk level as Bonus Action, once per Long Rest"
+                        }
+                    ]
+                },
+                martialArtsDie: "1d8",
+                focusPoints: 6
+            },
+            7: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Evasion",
+                        description: "Take no damage on successful Dex saves, half damage on failures"
+                    },
+                    {
+                        name: "Stillness of Mind",
+                        description: "End Charmed or Frightened condition on yourself as Bonus Action"
+                    }
+                ],
+                martialArtsDie: "1d8",
+                focusPoints: 7
+            },
+            8: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                martialArtsDie: "1d8",
+                focusPoints: 8
+            },
+            9: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Acrobatic Movement",
+                        description: "Move along vertical surfaces and across liquids without falling during the move"
+                    }
+                ],
+                martialArtsDie: "1d8",
+                focusPoints: 9
+            },
+            10: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Heightened Focus",
+                        description: "Regain 1 Focus Point when you roll Initiative if you have no Focus Points"
+                    },
+                    {
+                        name: "Self-Restoration",
+                        description: "End one condition on yourself when you regain Focus Points on Short/Long Rest"
+                    }
+                ],
+                martialArtsDie: "1d10",
+                focusPoints: 10
+            },
+            11: {
+                proficiencyBonus: 4,
+                subclassFeatures: {
+                    openhand: [
+                        {
+                            name: "Fleet Step",
+                            description: "When you take Step of the Wind, you can also make one Unarmed Strike as part of the Bonus Action"
+                        }
+                    ]
+                },
+                martialArtsDie: "1d10",
+                focusPoints: 11
+            },
+            12: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                martialArtsDie: "1d10",
+                focusPoints: 12
+            },
+            13: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Deflect Energy",
+                        description: "Deflect Attacks now works against ranged spell attacks; spend Focus Point to redirect"
+                    }
+                ],
+                martialArtsDie: "1d10",
+                focusPoints: 13
+            },
+            14: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Disciplined Survivor",
+                        description: "Gain proficiency in all saving throws; reroll failed saves by spending 1 Focus Point"
+                    }
+                ],
+                martialArtsDie: "1d10",
+                focusPoints: 14
+            },
+            15: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Perfect Focus",
+                        description: "Regain all Focus Points when you roll Initiative"
+                    }
+                ],
+                martialArtsDie: "1d12",
+                focusPoints: 15
+            },
+            16: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                martialArtsDie: "1d12",
+                focusPoints: 16
+            },
+            17: {
+                proficiencyBonus: 6,
+                subclassFeatures: {
+                    openhand: [
+                        {
+                            name: "Quivering Palm",
+                            description: "Spend 4 Focus Points to force Constitution save or be reduced to 0 HP; target can end effect with action"
+                        }
+                    ]
+                },
+                martialArtsDie: "1d12",
+                focusPoints: 17
+            },
+            18: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Superior Defense",
+                        description: "At start of turn, gain resistance to all damage until start of next turn if you're not Incapacitated"
+                    }
+                ],
+                martialArtsDie: "1d12",
+                focusPoints: 18
+            },
+            19: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Epic Boon",
+                        description: "Gain an Epic Boon feat",
+                        choices: {
+                            type: "epicBoon",
+                            options: ["Boon of Irresistible Offense", "Other Epic Boon"]
+                        }
+                    }
+                ],
+                martialArtsDie: "1d12",
+                focusPoints: 19
+            },
+            20: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Body and Mind",
+                        description: "Dexterity and Wisdom increase by 4 (max 25); regain 4 Focus Points when you roll Initiative"
+                    }
+                ],
+                martialArtsDie: "1d12",
+                focusPoints: 20
+            }
+        }
     },
 
     paladin: {

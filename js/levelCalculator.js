@@ -169,6 +169,18 @@ class LevelCalculator {
         if (levelData.invocationsKnown !== undefined) {
             info.invocationsKnown = levelData.invocationsKnown;
         }
+        if (levelData.wildShapeUses !== undefined) {
+            info.wildShapeUses = levelData.wildShapeUses;
+        }
+        if (levelData.wildShapeCR !== undefined) {
+            info.wildShapeCR = levelData.wildShapeCR;
+        }
+        if (levelData.martialArtsDie !== undefined) {
+            info.martialArtsDie = levelData.martialArtsDie;
+        }
+        if (levelData.focusPoints !== undefined) {
+            info.focusPoints = levelData.focusPoints;
+        }
 
         return info;
     }
