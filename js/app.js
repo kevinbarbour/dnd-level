@@ -117,10 +117,8 @@ class DnDLevelUpApp {
             this.displayFeatures(contentDiv, data.features);
         }
 
-        // Display progression info
-        if (Object.keys(data.progressionInfo).length > 0) {
-            this.displayProgressionInfo(contentDiv, data.progressionInfo);
-        }
+        // Display progression info (always show for non-stub classes)
+        this.displayProgressionInfo(contentDiv, data.progressionInfo);
 
         // Display choices
         if (data.choices.length > 0) {
@@ -179,9 +177,39 @@ class DnDLevelUpApp {
         
         let html = '<h3>📈 Progression Updates</h3>';
         
+        // Hit Points and Hit Dice
+        if (info.hpIncrease) {
+            html += `<div class="feature-item mb-sm"><strong>Hit Points:</strong> ${info.hpIncrease}</div>`;
+        }
+        if (info.hitDiceCount) {
+            html += `<div class="feature-item mb-sm"><strong>Hit Dice:</strong> ${info.hitDiceCount}${info.hitDie}</div>`;
+        }
+        
+        // Proficiency Bonus
         if (info.proficiencyBonus) {
             html += `<div class="feature-item mb-sm"><strong>Proficiency Bonus:</strong> +${info.proficiencyBonus}</div>`;
         }
+        
+        // Spellcasting progression
+        if (info.cantrips !== undefined) {
+            html += `<div class="feature-item mb-sm"><strong>Cantrips Known:</strong> ${info.cantrips}</div>`;
+        }
+        if (info.spellsKnown !== undefined) {
+            html += `<div class="feature-item mb-sm"><strong>Spells Known:</strong> ${info.spellsKnown}</div>`;
+        }
+        if (info.preparedSpells !== undefined) {
+            html += `<div class="feature-item mb-sm"><strong>Prepared Spells:</strong> ${info.preparedSpells}</div>`;
+        }
+        if (info.spellSlots) {
+            let slotsText = '';
+            Object.entries(info.spellSlots).forEach(([level, slots]) => {
+                if (slotsText) slotsText += ', ';
+                slotsText += `${level}${this.getOrdinalSuffix(level)}: ${slots}`;
+            });
+            html += `<div class="feature-item mb-sm"><strong>Spell Slots:</strong> ${slotsText}</div>`;
+        }
+        
+        // Class-specific resources
         if (info.rageUses) {
             html += `<div class="feature-item mb-sm"><strong>Rage Uses:</strong> ${info.rageUses} per Long Rest</div>`;
         }
@@ -191,9 +219,40 @@ class DnDLevelUpApp {
         if (info.weaponMastery) {
             html += `<div class="feature-item mb-sm"><strong>Weapon Mastery:</strong> ${info.weaponMastery} weapons</div>`;
         }
+        if (info.secondWind) {
+            html += `<div class="feature-item mb-sm"><strong>Second Wind Uses:</strong> ${info.secondWind} per Short/Long Rest</div>`;
+        }
+        if (info.sneakAttack) {
+            html += `<div class="feature-item mb-sm"><strong>Sneak Attack:</strong> ${info.sneakAttack}</div>`;
+        }
+        if (info.bardicDie) {
+            html += `<div class="feature-item mb-sm"><strong>Bardic Inspiration Die:</strong> ${info.bardicDie}</div>`;
+        }
+        if (info.sorceryPoints) {
+            html += `<div class="feature-item mb-sm"><strong>Sorcery Points:</strong> ${info.sorceryPoints}</div>`;
+        }
+        if (info.invocationsKnown) {
+            html += `<div class="feature-item mb-sm"><strong>Eldritch Invocations Known:</strong> ${info.invocationsKnown}</div>`;
+        }
         
         progressDiv.innerHTML = html;
         container.appendChild(progressDiv);
+    }
+    
+    // Helper function to get ordinal suffix
+    getOrdinalSuffix(num) {
+        const j = num % 10;
+        const k = num % 100;
+        if (j == 1 && k != 11) {
+            return "st";
+        }
+        if (j == 2 && k != 12) {
+            return "nd";
+        }
+        if (j == 3 && k != 13) {
+            return "rd";
+        }
+        return "th";
     }
 
     // Display choices that need to be made
@@ -238,13 +297,18 @@ class DnDLevelUpApp {
 
     // Create subclass display
     createSubclassDisplay(choice) {
+        const className = document.getElementById('selected-class').value;
+        const classInfo = classData[className];
+        
+        // Get appropriate instruction text for each class
+        const instructionText = this.getSubclassInstructionText(className);
+        
         let html = '<div class="choice-display">';
-        html += '<p class="choice-instruction">Choose your primal path</p>';
+        html += `<p class="choice-instruction">${instructionText}</p>`;
         html += '<h4>Available Subclasses:</h4>';
         html += '<ul class="choice-list">';
         
         choice.options.forEach(option => {
-            const classInfo = classData[document.getElementById('selected-class').value];
             const subclassInfo = classInfo.subclasses[option];
             
             html += `
@@ -257,12 +321,28 @@ class DnDLevelUpApp {
         html += '</ul></div>';
         return html;
     }
+    
+    // Get appropriate subclass instruction text for each class
+    getSubclassInstructionText(className) {
+        const instructions = {
+            'barbarian': 'Choose your primal path',
+            'bard': 'Choose your college',
+            'cleric': 'Choose your divine domain',
+            'fighter': 'Choose your martial archetype',
+            'rogue': 'Choose your roguish archetype',
+            'sorcerer': 'Choose your sorcerous origin',
+            'warlock': 'Choose your otherworldly patron',
+            'wizard': 'Choose your arcane tradition'
+        };
+        
+        return instructions[className] || 'Choose your subclass';
+    }
 
     // Create ASI or Feat display
     createASIOrFeatDisplay(choice) {
         let html = '<div class="choice-display">';
-        html += '<p class="choice-instruction">Gain proficiency in one additional skill and use Strength for certain skill checks during Rage</p>';
-        html += '<h4>Choose 1 skill to gain proficiency:</h4>';
+        html += '<p class="choice-instruction">Choose to increase your ability scores or gain a feat</p>';
+        html += '<h4>Available Options:</h4>';
         html += '<ul class="choice-list">';
         
         choice.options.forEach(option => {

@@ -89,7 +89,7 @@ class LevelCalculator {
         }
 
         // Add level progression info
-        result.progressionInfo = this.getProgressionInfo(levelData);
+        result.progressionInfo = this.getProgressionInfo(classInfo, levelData, nextLevel);
 
         // Calculate completion
         result.completedChoices = this.countCompletedChoices(result.choices);
@@ -117,9 +117,34 @@ class LevelCalculator {
     }
 
     // Get progression info (rage uses, weapon mastery, etc.)
-    getProgressionInfo(levelData) {
+    getProgressionInfo(classInfo, levelData, nextLevel) {
         const info = {};
         
+        // Hit Points and Hit Dice
+        info.hitDie = classInfo.hitDie;
+        info.hitDiceCount = nextLevel;
+        info.hpIncrease = `Roll ${classInfo.hitDie} + Constitution modifier (or take average: ${this.getAverageHP(classInfo.hitDie)} + Con mod)`;
+        
+        // Proficiency Bonus
+        if (levelData.proficiencyBonus !== undefined) {
+            info.proficiencyBonus = levelData.proficiencyBonus;
+        }
+        
+        // Spellcasting progression
+        if (levelData.cantrips !== undefined) {
+            info.cantrips = levelData.cantrips;
+        }
+        if (levelData.spellsKnown !== undefined) {
+            info.spellsKnown = levelData.spellsKnown;
+        }
+        if (levelData.preparedSpells !== undefined) {
+            info.preparedSpells = levelData.preparedSpells;
+        }
+        if (levelData.spellSlots !== undefined) {
+            info.spellSlots = levelData.spellSlots;
+        }
+        
+        // Class-specific resources
         if (levelData.rageUses !== undefined) {
             info.rageUses = levelData.rageUses;
         }
@@ -129,11 +154,34 @@ class LevelCalculator {
         if (levelData.weaponMastery !== undefined) {
             info.weaponMastery = levelData.weaponMastery;
         }
-        if (levelData.proficiencyBonus !== undefined) {
-            info.proficiencyBonus = levelData.proficiencyBonus;
+        if (levelData.secondWind !== undefined) {
+            info.secondWind = levelData.secondWind;
+        }
+        if (levelData.sneakAttack !== undefined) {
+            info.sneakAttack = levelData.sneakAttack;
+        }
+        if (levelData.bardicDie !== undefined) {
+            info.bardicDie = levelData.bardicDie;
+        }
+        if (levelData.sorceryPoints !== undefined) {
+            info.sorceryPoints = levelData.sorceryPoints;
+        }
+        if (levelData.invocationsKnown !== undefined) {
+            info.invocationsKnown = levelData.invocationsKnown;
         }
 
         return info;
+    }
+    
+    // Get average HP for a hit die
+    getAverageHP(hitDie) {
+        const averages = {
+            'd6': 4,
+            'd8': 5,
+            'd10': 6,
+            'd12': 7
+        };
+        return averages[hitDie] || 5;
     }
 
     // Check if a choice is completed
