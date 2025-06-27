@@ -355,6 +355,63 @@ body {
     transform: scale(1.2);
 }
 
+/* Choice Display Styles */
+.choice-display {
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+    margin: var(--spacing-xs) 0;
+}
+
+.choice-display h4 {
+    font-family: var(--font-heading);
+    color: var(--accent-purple);
+    margin-bottom: var(--spacing-xs);
+    font-size: 1.1rem;
+}
+
+.choice-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.choice-list li {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(184, 148, 31, 0.3);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+    margin: var(--spacing-xs) 0;
+    transition: all 0.2s ease;
+}
+
+.choice-list li:hover {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: var(--border-gold);
+    transform: translateX(2px);
+}
+
+.choice-list li strong {
+    color: var(--accent-purple);
+    font-family: var(--font-heading);
+}
+
+.choice-instruction {
+    font-style: italic;
+    color: var(--accent-purple);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 600;
+}
+
+.choice-note {
+    font-style: italic;
+    color: var(--text-dark);
+    opacity: 0.8;
+    margin-top: var(--spacing-sm);
+    font-size: 0.9rem;
+}
+
 /* Action Buttons */
 .action-buttons {
     display: flex;

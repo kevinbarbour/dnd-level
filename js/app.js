@@ -48,23 +48,6 @@ class DnDLevelUpApp {
         document.getElementById('calculate-btn').addEventListener('click', () => {
             this.calculateLevelUp();
         });
-
-        // Action buttons
-        document.getElementById('save-progress-btn').addEventListener('click', () => {
-            this.saveProgress();
-        });
-
-        document.getElementById('export-btn').addEventListener('click', () => {
-            this.exportSummary();
-        });
-
-        document.getElementById('reset-btn').addEventListener('click', () => {
-            this.resetProgress();
-        });
-
-        document.getElementById('copy-summary-btn').addEventListener('click', () => {
-            this.copySummaryToClipboard();
-        });
     }
 
     // Handle class button selection
@@ -106,7 +89,6 @@ class DnDLevelUpApp {
             this.currentLevelUpData = levelCalculator.calculateLevelUp(className, currentLevel);
             this.displayLevelUpChoices();
             this.showSection('level-up-section');
-            this.hideSection('export-section');
 
         } catch (error) {
             this.showError(error.message);
@@ -120,9 +102,6 @@ class DnDLevelUpApp {
         // Update title
         document.getElementById('level-title').textContent = 
             `${data.className} Level ${data.nextLevel}`;
-
-        // Update progress
-        this.updateProgress();
 
         // Clear and populate content
         const contentDiv = document.getElementById('level-content');
@@ -152,9 +131,6 @@ class DnDLevelUpApp {
             noChoicesDiv.innerHTML = '<h3>🎉 No Choices Required</h3><p>This level grants new features automatically!</p>';
             contentDiv.appendChild(noChoicesDiv);
         }
-
-        // Update export button
-        document.getElementById('export-btn').disabled = data.totalChoices > 0 && data.completedChoices < data.totalChoices;
     }
 
     // Display stub message for incomplete classes
@@ -170,7 +146,7 @@ class DnDLevelUpApp {
                 <li>All class features and abilities</li>
                 <li>Subclass options and features</li>
                 <li>Spell progression (for spellcasters)</li>
-                <li>Interactive choice selection</li>
+                <li>Reference information for character sheets</li>
             </ul>
             <p><em>Check back soon for the full ${data.className} implementation!</em></p>
         `;
@@ -227,136 +203,123 @@ class DnDLevelUpApp {
             choiceDiv.className = 'choice-group';
             
             const prefix = choice.isSubclass ? '[Subclass] ' : '';
-            const completedIcon = choice.completed ? '✅' : '❓';
             
             let html = `
-                <h3>${completedIcon} ${prefix}${choice.name}</h3>
+                <h3>📝 ${prefix}${choice.name}</h3>
                 <p>${choice.description}</p>
             `;
 
-            html += this.createChoiceInput(choice);
+            html += this.createChoiceDisplay(choice);
             
             choiceDiv.innerHTML = html;
             container.appendChild(choiceDiv);
-
-            // Add event listeners for this choice
-            this.addChoiceEventListeners(choice);
         });
     }
 
-    // Create input elements for different choice types
-    createChoiceInput(choice) {
+    // Create display for different choice types (no interactivity)
+    createChoiceDisplay(choice) {
         switch (choice.type) {
             case 'subclass':
-                return this.createSubclassChoice(choice);
+                return this.createSubclassDisplay(choice);
             case 'asiOrFeat':
-                return this.createASIOrFeatChoice(choice);
+                return this.createASIOrFeatDisplay(choice);
             case 'weaponMastery':
-                return this.createWeaponMasteryChoice(choice);
+                return this.createWeaponMasteryDisplay(choice);
             case 'skill':
-                return this.createSkillChoice(choice);
+                return this.createSkillDisplay(choice);
             case 'brutalStrike':
-                return this.createBrutalStrikeChoice(choice);
+                return this.createBrutalStrikeDisplay(choice);
             case 'epicBoon':
-                return this.createEpicBoonChoice(choice);
+                return this.createEpicBoonDisplay(choice);
             default:
                 return '<p><em>Choice type not implemented yet.</em></p>';
         }
     }
 
-    // Create subclass selection
-    createSubclassChoice(choice) {
-        let html = '<div class="choice-options">';
+    // Create subclass display
+    createSubclassDisplay(choice) {
+        let html = '<div class="choice-display">';
+        html += '<p class="choice-instruction">Choose your primal path</p>';
+        html += '<h4>Available Subclasses:</h4>';
+        html += '<ul class="choice-list">';
+        
         choice.options.forEach(option => {
             const classInfo = classData[document.getElementById('selected-class').value];
             const subclassInfo = classInfo.subclasses[option];
-            const checked = choice.userChoice === option ? 'checked' : '';
             
             html += `
-                <div class="choice-option">
-                    <input type="radio" id="${choice.id}_${option}" name="${choice.id}" value="${option}" ${checked}>
-                    <label for="${choice.id}_${option}">
-                        <strong>${subclassInfo.name}</strong><br>
-                        <small>${subclassInfo.description}</small>
-                    </label>
-                </div>
+                <li>
+                    <strong>${subclassInfo.name}:</strong> ${subclassInfo.description}
+                </li>
             `;
         });
-        html += '</div>';
+        
+        html += '</ul></div>';
         return html;
     }
 
-    // Create ASI or Feat choice
-    createASIOrFeatChoice(choice) {
-        let html = '<div class="choice-options">';
+    // Create ASI or Feat display
+    createASIOrFeatDisplay(choice) {
+        let html = '<div class="choice-display">';
+        html += '<p class="choice-instruction">Gain proficiency in one additional skill and use Strength for certain skill checks during Rage</p>';
+        html += '<h4>Choose 1 skill to gain proficiency:</h4>';
+        html += '<ul class="choice-list">';
+        
         choice.options.forEach(option => {
-            const checked = choice.userChoice === option ? 'checked' : '';
             const description = option === 'Ability Score Improvement' 
                 ? 'Increase one ability score by 2, or two ability scores by 1 each'
                 : 'Gain a feat of your choice';
             
             html += `
-                <div class="choice-option">
-                    <input type="radio" id="${choice.id}_${option}" name="${choice.id}" value="${option}" ${checked}>
-                    <label for="${choice.id}_${option}">
-                        <strong>${option}</strong><br>
-                        <small>${description}</small>
-                    </label>
-                </div>
+                <li>
+                    <strong>${option}:</strong> ${description}
+                </li>
             `;
         });
-        html += '</div>';
+        
+        html += '</ul></div>';
         return html;
     }
 
-    // Create weapon mastery choice
-    createWeaponMasteryChoice(choice) {
-        let html = `<p><strong>Choose ${choice.count} weapon${choice.count > 1 ? 's' : ''}:</strong></p>`;
-        html += '<div class="choice-options">';
+    // Create weapon mastery display
+    createWeaponMasteryDisplay(choice) {
+        let html = '<div class="choice-display">';
+        html += `<p class="choice-instruction">Choose ${choice.count} weapon${choice.count > 1 ? 's' : ''} to master:</p>`;
+        html += '<ul class="choice-list">';
         
         choice.options.forEach(weapon => {
             const property = levelCalculator.getWeaponMasteryProperty(weapon);
-            const checked = choice.userChoice && choice.userChoice.includes(weapon) ? 'checked' : '';
             
             html += `
-                <div class="choice-option">
-                    <input type="checkbox" id="${choice.id}_${weapon}" name="${choice.id}" value="${weapon}" ${checked}>
-                    <label for="${choice.id}_${weapon}">
-                        <strong>${weapon}</strong> (${property})<br>
-                        <small>Mastery property: ${property}</small>
-                    </label>
-                </div>
+                <li>
+                    <strong>${weapon}</strong> - Mastery: ${property}
+                </li>
             `;
         });
         
-        html += '</div>';
+        html += '</ul></div>';
         return html;
     }
 
-    // Create skill choice
-    createSkillChoice(choice) {
-        let html = `<p><strong>Choose ${choice.count} skill${choice.count > 1 ? 's' : ''}:</strong></p>`;
-        html += '<div class="choice-options">';
+    // Create skill display
+    createSkillDisplay(choice) {
+        let html = '<div class="choice-display">';
+        html += `<p class="choice-instruction">Choose ${choice.count} skill${choice.count > 1 ? 's' : ''} to gain proficiency:</p>`;
+        html += '<ul class="choice-list">';
         
         choice.options.forEach(skill => {
-            const checked = choice.userChoice && choice.userChoice.includes(skill) ? 'checked' : '';
-            
-            html += `
-                <div class="choice-option">
-                    <input type="checkbox" id="${choice.id}_${skill}" name="${choice.id}" value="${skill}" ${checked}>
-                    <label for="${choice.id}_${skill}">${skill}</label>
-                </div>
-            `;
+            html += `<li>${skill}</li>`;
         });
         
-        html += '</div>';
+        html += '</ul></div>';
         return html;
     }
 
-    // Create brutal strike choice
-    createBrutalStrikeChoice(choice) {
-        let html = '<p><strong>Available Brutal Strike Effects:</strong></p>';
-        html += '<div class="choice-options">';
+    // Create brutal strike display
+    createBrutalStrikeDisplay(choice) {
+        let html = '<div class="choice-display">';
+        html += '<p class="choice-instruction">Available Brutal Strike Effects to learn:</p>';
+        html += '<ul class="choice-list">';
         
         const descriptions = {
             'Forceful Blow': 'Push target 15 feet away, then move up to half Speed toward them',
@@ -366,154 +329,40 @@ class DnDLevelUpApp {
         };
         
         choice.options.forEach(option => {
-            const checked = choice.userChoice && choice.userChoice.includes(option) ? 'checked' : '';
-            
             html += `
-                <div class="choice-option">
-                    <input type="checkbox" id="${choice.id}_${option}" name="${choice.id}" value="${option}" ${checked}>
-                    <label for="${choice.id}_${option}">
-                        <strong>${option}</strong><br>
-                        <small>${descriptions[option] || 'Effect description'}</small>
-                    </label>
-                </div>
+                <li>
+                    <strong>${option}:</strong> ${descriptions[option] || 'Effect description'}
+                </li>
             `;
         });
         
+        html += '</ul>';
+        html += '<p class="choice-note">Note: You can learn multiple effects and choose which to use each time.</p>';
         html += '</div>';
-        html += '<p><em>Note: You can learn multiple effects and choose which to use each time.</em></p>';
         return html;
     }
 
-    // Create epic boon choice
-    createEpicBoonChoice(choice) {
-        let html = '<div class="choice-options">';
+    // Create epic boon display
+    createEpicBoonDisplay(choice) {
+        let html = '<div class="choice-display">';
+        html += '<p class="choice-instruction">Available Epic Boons:</p>';
+        html += '<ul class="choice-list">';
         
         const boons = levelCalculator.getEpicBoons();
         boons.forEach(boon => {
-            const checked = choice.userChoice === boon ? 'checked' : '';
-            
-            html += `
-                <div class="choice-option">
-                    <input type="radio" id="${choice.id}_${boon}" name="${choice.id}" value="${boon}" ${checked}>
-                    <label for="${choice.id}_${boon}">${boon}</label>
-                </div>
-            `;
+            html += `<li>${boon}</li>`;
         });
         
-        html += '</div>';
+        html += '</ul></div>';
         return html;
-    }
-
-    // Add event listeners for choice inputs
-    addChoiceEventListeners(choice) {
-        const inputs = document.querySelectorAll(`input[name="${choice.id}"]`);
-        
-        inputs.forEach(input => {
-            input.addEventListener('change', () => {
-                this.handleChoiceChange(choice, input);
-            });
-        });
-    }
-
-    // Handle choice changes
-    handleChoiceChange(choice, input) {
-        let value;
-        
-        if (input.type === 'checkbox') {
-            // Handle multiple selections
-            const checkedInputs = document.querySelectorAll(`input[name="${choice.id}"]:checked`);
-            value = Array.from(checkedInputs).map(inp => inp.value);
-            
-            // Enforce count limits for certain choice types
-            if (choice.type === 'weaponMastery' && value.length > choice.count) {
-                input.checked = false;
-                value = value.filter(v => v !== input.value);
-                this.showError(`You can only select ${choice.count} weapon${choice.count > 1 ? 's' : ''}.`);
-                return;
-            }
-            
-            if (choice.type === 'skill' && value.length > choice.count) {
-                input.checked = false;
-                value = value.filter(v => v !== input.value);
-                this.showError(`You can only select ${choice.count} skill${choice.count > 1 ? 's' : ''}.`);
-                return;
-            }
-        } else {
-            // Handle single selections
-            value = input.value;
-        }
-        
-        // Save the choice
-        levelCalculator.saveChoice(choice.id, value);
-        
-        // Update the current data and refresh display
-        this.currentLevelUpData = levelCalculator.calculateLevelUp(
-            document.getElementById('selected-class').value,
-            parseInt(document.getElementById('current-level').value)
-        );
-        
-        this.updateProgress();
-        this.updateExportButton();
-    }
-
-    // Update progress bar
-    updateProgress() {
-        const data = this.currentLevelUpData;
-        const percentage = data.totalChoices > 0 ? (data.completedChoices / data.totalChoices) * 100 : 100;
-        
-        document.getElementById('progress-fill').style.width = `${percentage}%`;
-        document.getElementById('progress-text').textContent = 
-            `${Math.round(percentage)}% Complete (${data.completedChoices}/${data.totalChoices})`;
-    }
-
-    // Update export button state
-    updateExportButton() {
-        const data = this.currentLevelUpData;
-        document.getElementById('export-btn').disabled = 
-            data.totalChoices > 0 && data.completedChoices < data.totalChoices;
-    }
-
-    // Save progress
-    saveProgress() {
-        levelCalculator.saveProgress();
-        this.showSuccess('Progress saved successfully!');
-    }
-
-    // Export summary
-    exportSummary() {
-        if (!this.currentLevelUpData) return;
-        
-        const summary = levelCalculator.generateSummary(this.currentLevelUpData);
-        document.getElementById('export-content').textContent = summary;
-        this.showSection('export-section');
-    }
-
-    // Copy summary to clipboard
-    async copySummaryToClipboard() {
-        const content = document.getElementById('export-content').textContent;
-        
-        try {
-            await navigator.clipboard.writeText(content);
-            this.showSuccess('Summary copied to clipboard!');
-        } catch (err) {
-            // Fallback for older browsers
-            const textArea = document.createElement('textarea');
-            textArea.value = content;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            this.showSuccess('Summary copied to clipboard!');
-        }
     }
 
     // Return to homepage (banner click)
     returnToHomepage() {
-        // Hide level-up and export sections
+        // Hide level-up section
         this.hideSection('level-up-section');
-        this.hideSection('export-section');
         
-        // Clear selections but keep data
+        // Clear selections
         document.querySelectorAll('.class-btn').forEach(btn => {
             btn.classList.remove('selected');
         });
@@ -527,25 +376,6 @@ class DnDLevelUpApp {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Reset progress
-    resetProgress() {
-        if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
-            levelCalculator.clearChoices();
-            this.hideSection('level-up-section');
-            this.hideSection('export-section');
-            
-            // Clear class selection
-            document.querySelectorAll('.class-btn').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            document.getElementById('selected-class').value = '';
-            document.getElementById('current-level').value = '';
-            
-            this.updateCalculateButton();
-            this.showSuccess('Progress reset successfully!');
-        }
-    }
-
     // Utility functions
     showSection(sectionId) {
         document.getElementById(sectionId).classList.remove('hidden');
@@ -556,12 +386,10 @@ class DnDLevelUpApp {
     }
 
     showError(message) {
-        // Simple error display - could be enhanced with a modal or toast
         alert(`Error: ${message}`);
     }
 
     showSuccess(message) {
-        // Simple success display - could be enhanced with a modal or toast
         alert(message);
     }
 }
