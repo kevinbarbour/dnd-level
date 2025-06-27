@@ -1972,12 +1972,338 @@ const classData = {
         primaryAbility: "Strength and Charisma",
         hitDie: "d10",
         savingThrows: ["Wisdom", "Charisma"],
+        skillChoices: ["Choose 2: Athletics, Insight, Intimidation, Medicine, Persuasion, or Religion"],
+        weaponProficiencies: ["Simple and Martial weapons"],
+        armorTraining: ["Light, Medium, and Heavy armor and Shields"],
         subclassLevel: 3,
         subclasses: {
-            "devotion": { name: "Oath of Devotion", description: "Coming Soon" }
+            "devotion": {
+                name: "Oath of Devotion",
+                description: "Uphold the Ideals of Justice and Honor"
+            }
         },
-        stub: true,
-        stubMessage: "Full Paladin implementation coming soon! This will include Spellcasting, Divine Smite, and Sacred Oath features."
+        levels: {
+            1: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Lay on Hands",
+                        description: "Heal HP equal to 5 × Paladin level per Long Rest as an action"
+                    },
+                    {
+                        name: "Weapon Mastery",
+                        description: "Use mastery properties of 2 Simple or Martial weapons",
+                        choices: {
+                            type: "weaponMastery",
+                            count: 2,
+                            options: [
+                                "Battleaxe", "Club", "Dagger", "Dart", "Greataxe", "Greatclub", 
+                                "Greatsword", "Handaxe", "Javelin", "Lance", "Longsword", 
+                                "Mace", "Maul", "Pike", "Quarterstaff", "Rapier", "Scimitar", 
+                                "Shortsword", "Sickle", "Spear", "Trident", "War Pick", "Warhammer"
+                            ]
+                        }
+                    }
+                ],
+                layOnHands: 5,
+                weaponMastery: 2
+            },
+            2: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Fighting Style",
+                        description: "Choose a Fighting Style feat",
+                        choices: {
+                            type: "fightingStyle",
+                            options: ["Defense", "Dueling", "Great Weapon Fighting", "Protection", "Blessed Warrior"]
+                        }
+                    },
+                    {
+                        name: "Spellcasting",
+                        description: "Cast spells using Charisma. Prepare 2 level 1 spells"
+                    },
+                    {
+                        name: "Divine Smite",
+                        description: "Expend spell slot when hitting with weapon attack to deal extra 2d8 + 1d8 per slot level Radiant damage"
+                    }
+                ],
+                preparedSpells: 2,
+                spellSlots: { 1: 2 },
+                layOnHands: 10,
+                weaponMastery: 2
+            },
+            3: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Paladin Subclass",
+                        description: "Choose your sacred oath",
+                        choices: {
+                            type: "subclass",
+                            options: ["devotion"]
+                        }
+                    },
+                    {
+                        name: "Divine Health",
+                        description: "Immunity to disease"
+                    }
+                ],
+                subclassFeatures: {
+                    devotion: [
+                        {
+                            name: "Oath Spells",
+                            description: "Always have Protection from Evil and Good and Sanctuary prepared (don't count against limit)"
+                        },
+                        {
+                            name: "Sacred Weapon",
+                            description: "Channel Divinity to make weapon magical and shed bright light for 1 minute"
+                        },
+                        {
+                            name: "Turn the Unholy",
+                            description: "Channel Divinity to Turn Fiends and Undead within 30 feet"
+                        }
+                    ]
+                },
+                preparedSpells: 3,
+                spellSlots: { 1: 3 },
+                layOnHands: 15,
+                weaponMastery: 2
+            },
+            4: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                preparedSpells: 3,
+                spellSlots: { 1: 3 },
+                layOnHands: 20,
+                weaponMastery: 2
+            },
+            5: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Extra Attack",
+                        description: "Attack twice when you take the Attack action"
+                    },
+                    {
+                        name: "Faithful Steed",
+                        description: "Cast Find Steed as a ritual"
+                    }
+                ],
+                preparedSpells: 4,
+                spellSlots: { 1: 4, 2: 2 },
+                layOnHands: 25,
+                weaponMastery: 2
+            },
+            6: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Aura of Protection",
+                        description: "You and allies within 10 feet add your Charisma modifier to saving throws"
+                    }
+                ],
+                preparedSpells: 4,
+                spellSlots: { 1: 4, 2: 2 },
+                layOnHands: 30,
+                weaponMastery: 2
+            },
+            7: {
+                proficiencyBonus: 3,
+                subclassFeatures: {
+                    devotion: [
+                        {
+                            name: "Aura of Devotion",
+                            description: "You and allies within 10 feet are immune to Charmed condition"
+                        }
+                    ]
+                },
+                preparedSpells: 5,
+                spellSlots: { 1: 4, 2: 3 },
+                layOnHands: 35,
+                weaponMastery: 2
+            },
+            8: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                preparedSpells: 5,
+                spellSlots: { 1: 4, 2: 3 },
+                layOnHands: 40,
+                weaponMastery: 2
+            },
+            9: {
+                proficiencyBonus: 4,
+                preparedSpells: 6,
+                spellSlots: { 1: 4, 2: 3, 3: 2 },
+                layOnHands: 45,
+                weaponMastery: 2
+            },
+            10: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Aura of Courage",
+                        description: "You and allies within 10 feet are immune to Frightened condition"
+                    }
+                ],
+                preparedSpells: 7,
+                spellSlots: { 1: 4, 2: 3, 3: 2 },
+                layOnHands: 50,
+                weaponMastery: 2
+            },
+            11: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Radiant Strikes",
+                        description: "Weapon attacks deal extra 1d8 Radiant damage"
+                    }
+                ],
+                preparedSpells: 8,
+                spellSlots: { 1: 4, 2: 3, 3: 3 },
+                layOnHands: 55,
+                weaponMastery: 2
+            },
+            12: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                preparedSpells: 8,
+                spellSlots: { 1: 4, 2: 3, 3: 3 },
+                layOnHands: 60,
+                weaponMastery: 2
+            },
+            13: {
+                proficiencyBonus: 5,
+                preparedSpells: 9,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 1 },
+                layOnHands: 65,
+                weaponMastery: 2
+            },
+            14: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Restoring Touch",
+                        description: "Use Lay on Hands to end one condition: Blinded, Charmed, Deafened, Frightened, Paralyzed, or Stunned"
+                    }
+                ],
+                preparedSpells: 10,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 1 },
+                layOnHands: 70,
+                weaponMastery: 2
+            },
+            15: {
+                proficiencyBonus: 5,
+                subclassFeatures: {
+                    devotion: [
+                        {
+                            name: "Purity of Spirit",
+                            description: "Always under effects of Protection from Evil and Good spell"
+                        }
+                    ]
+                },
+                preparedSpells: 11,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 2 },
+                layOnHands: 75,
+                weaponMastery: 2
+            },
+            16: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                preparedSpells: 11,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 2 },
+                layOnHands: 80,
+                weaponMastery: 2
+            },
+            17: {
+                proficiencyBonus: 6,
+                preparedSpells: 12,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 1 },
+                layOnHands: 85,
+                weaponMastery: 2
+            },
+            18: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Aura Improvements",
+                        description: "Aura of Protection and other auras extend to 30 feet"
+                    }
+                ],
+                preparedSpells: 13,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 1 },
+                layOnHands: 90,
+                weaponMastery: 2
+            },
+            19: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Epic Boon",
+                        description: "Gain an Epic Boon feat",
+                        choices: {
+                            type: "epicBoon",
+                            options: ["Boon of Truesight", "Other Epic Boon"]
+                        }
+                    }
+                ],
+                preparedSpells: 14,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2 },
+                layOnHands: 95,
+                weaponMastery: 2
+            },
+            20: {
+                proficiencyBonus: 6,
+                subclassFeatures: {
+                    devotion: [
+                        {
+                            name: "Holy Nimbus",
+                            description: "Transform for 1 minute: 60-foot bright light, 10 Radiant damage to enemies starting turn within 10 feet, Advantage on saves vs spells"
+                        }
+                    ]
+                },
+                preparedSpells: 14,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2 },
+                layOnHands: 100,
+                weaponMastery: 2
+            }
+        }
     },
 
     ranger: {
@@ -1985,12 +2311,362 @@ const classData = {
         primaryAbility: "Dexterity and Wisdom",
         hitDie: "d10",
         savingThrows: ["Strength", "Dexterity"],
+        skillChoices: ["Choose 3: Animal Handling, Athletics, Insight, Investigation, Nature, Perception, Stealth, or Survival"],
+        weaponProficiencies: ["Simple and Martial weapons"],
+        armorTraining: ["Light and Medium armor and Shields"],
         subclassLevel: 3,
         subclasses: {
-            "hunter": { name: "Hunter", description: "Coming Soon" }
+            "hunter": {
+                name: "Hunter",
+                description: "Master the Art of Tracking and Combat"
+            }
         },
-        stub: true,
-        stubMessage: "Full Ranger implementation coming soon! This will include Spellcasting, Favored Enemy, and Ranger Archetype features."
+        levels: {
+            1: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Favored Enemy",
+                        description: "Choose a creature type to gain advantages against",
+                        choices: {
+                            type: "favoredEnemy",
+                            options: ["Beasts", "Fey", "Humanoids", "Monstrosities", "Undead"]
+                        }
+                    },
+                    {
+                        name: "Weapon Mastery",
+                        description: "Use mastery properties of 2 Simple or Martial weapons",
+                        choices: {
+                            type: "weaponMastery",
+                            count: 2,
+                            options: [
+                                "Battleaxe", "Club", "Dagger", "Dart", "Greataxe", "Greatclub", 
+                                "Greatsword", "Handaxe", "Javelin", "Lance", "Longsword", 
+                                "Mace", "Maul", "Pike", "Quarterstaff", "Rapier", "Scimitar", 
+                                "Shortsword", "Sickle", "Spear", "Trident", "War Pick", "Warhammer"
+                            ]
+                        }
+                    }
+                ],
+                weaponMastery: 2
+            },
+            2: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Deft Explorer",
+                        description: "Choose Canny, Roving, or Tireless",
+                        choices: {
+                            type: "deftExplorer",
+                            options: ["Canny (Expertise + language)", "Roving (+5 Speed, Climb/Swim)", "Tireless (Temp HP + exhaustion recovery)"]
+                        }
+                    },
+                    {
+                        name: "Fighting Style",
+                        description: "Choose a Fighting Style feat",
+                        choices: {
+                            type: "fightingStyle",
+                            options: ["Archery", "Defense", "Dueling", "Two-Weapon Fighting", "Druidcraft"]
+                        }
+                    },
+                    {
+                        name: "Spellcasting",
+                        description: "Cast spells using Wisdom. Prepare 2 level 1 spells"
+                    }
+                ],
+                preparedSpells: 2,
+                spellSlots: { 1: 2 },
+                weaponMastery: 2
+            },
+            3: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Ranger Subclass",
+                        description: "Choose your ranger archetype",
+                        choices: {
+                            type: "subclass",
+                            options: ["hunter"]
+                        }
+                    },
+                    {
+                        name: "Primeval Awareness",
+                        description: "Detect presence of favored enemies within 1 mile"
+                    }
+                ],
+                subclassFeatures: {
+                    hunter: [
+                        {
+                            name: "Hunter's Prey",
+                            description: "Choose a combat technique against your quarry",
+                            choices: {
+                                type: "huntersPrey",
+                                options: ["Colossus Slayer", "Giant Killer", "Horde Breaker"]
+                            }
+                        }
+                    ]
+                },
+                preparedSpells: 3,
+                spellSlots: { 1: 3 },
+                weaponMastery: 2
+            },
+            4: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                preparedSpells: 3,
+                spellSlots: { 1: 3 },
+                weaponMastery: 2
+            },
+            5: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Extra Attack",
+                        description: "Attack twice when you take the Attack action"
+                    }
+                ],
+                preparedSpells: 4,
+                spellSlots: { 1: 4, 2: 2 },
+                weaponMastery: 2
+            },
+            6: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Deft Explorer Improvement",
+                        description: "Choose another Deft Explorer option",
+                        choices: {
+                            type: "deftExplorer",
+                            options: ["Canny (Expertise + language)", "Roving (+5 Speed, Climb/Swim)", "Tireless (Temp HP + exhaustion recovery)"]
+                        }
+                    },
+                    {
+                        name: "Favored Enemy",
+                        description: "Choose an additional creature type",
+                        choices: {
+                            type: "favoredEnemy",
+                            options: ["Aberrations", "Celestials", "Constructs", "Dragons", "Elementals", "Fiends", "Giants", "Oozes", "Plants"]
+                        }
+                    }
+                ],
+                preparedSpells: 4,
+                spellSlots: { 1: 4, 2: 2 },
+                weaponMastery: 2
+            },
+            7: {
+                proficiencyBonus: 3,
+                subclassFeatures: {
+                    hunter: [
+                        {
+                            name: "Hunter's Defense",
+                            description: "Choose a defensive technique",
+                            choices: {
+                                type: "huntersDefense",
+                                options: ["Escape the Horde", "Multiattack Defense", "Steel Will"]
+                            }
+                        }
+                    ]
+                },
+                preparedSpells: 5,
+                spellSlots: { 1: 4, 2: 3 },
+                weaponMastery: 2
+            },
+            8: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    },
+                    {
+                        name: "Land's Stride",
+                        description: "Move through difficult terrain without penalty; advantage on saves against plants"
+                    }
+                ],
+                preparedSpells: 5,
+                spellSlots: { 1: 4, 2: 3 },
+                weaponMastery: 2
+            },
+            9: {
+                proficiencyBonus: 4,
+                preparedSpells: 6,
+                spellSlots: { 1: 4, 2: 3, 3: 2 },
+                weaponMastery: 2
+            },
+            10: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Deft Explorer Mastery",
+                        description: "Choose the final Deft Explorer option",
+                        choices: {
+                            type: "deftExplorer",
+                            options: ["Canny (Expertise + language)", "Roving (+5 Speed, Climb/Swim)", "Tireless (Temp HP + exhaustion recovery)"]
+                        }
+                    },
+                    {
+                        name: "Hide in Plain Sight",
+                        description: "Become invisible when you don't move on your turn"
+                    }
+                ],
+                preparedSpells: 7,
+                spellSlots: { 1: 4, 2: 3, 3: 2 },
+                weaponMastery: 2
+            },
+            11: {
+                proficiencyBonus: 4,
+                subclassFeatures: {
+                    hunter: [
+                        {
+                            name: "Hunter's Multiattack",
+                            description: "Choose an advanced combat technique",
+                            choices: {
+                                type: "huntersMultiattack",
+                                options: ["Volley", "Whirlwind Attack"]
+                            }
+                        }
+                    ]
+                },
+                preparedSpells: 8,
+                spellSlots: { 1: 4, 2: 3, 3: 3 },
+                weaponMastery: 2
+            },
+            12: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                preparedSpells: 8,
+                spellSlots: { 1: 4, 2: 3, 3: 3 },
+                weaponMastery: 2
+            },
+            13: {
+                proficiencyBonus: 5,
+                preparedSpells: 9,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 1 },
+                weaponMastery: 2
+            },
+            14: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Favored Enemy",
+                        description: "Choose a third creature type",
+                        choices: {
+                            type: "favoredEnemy",
+                            options: ["Any remaining creature type"]
+                        }
+                    },
+                    {
+                        name: "Vanish",
+                        description: "Take Hide action as Bonus Action; can't be tracked except by magical means"
+                    }
+                ],
+                preparedSpells: 10,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 1 },
+                weaponMastery: 2
+            },
+            15: {
+                proficiencyBonus: 5,
+                subclassFeatures: {
+                    hunter: [
+                        {
+                            name: "Hunter's Superior Defense",
+                            description: "Choose an ultimate defensive technique",
+                            choices: {
+                                type: "huntersSuperiorDefense",
+                                options: ["Evasion", "Stand Against the Tide", "Uncanny Dodge"]
+                            }
+                        }
+                    ]
+                },
+                preparedSpells: 11,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 2 },
+                weaponMastery: 2
+            },
+            16: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                preparedSpells: 11,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 2 },
+                weaponMastery: 2
+            },
+            17: {
+                proficiencyBonus: 6,
+                preparedSpells: 12,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 1 },
+                weaponMastery: 2
+            },
+            18: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Feral Senses",
+                        description: "Detect invisible creatures within 30 feet; no disadvantage on attacks against unseen creatures"
+                    }
+                ],
+                preparedSpells: 13,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 1 },
+                weaponMastery: 2
+            },
+            19: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Epic Boon",
+                        description: "Gain an Epic Boon feat",
+                        choices: {
+                            type: "epicBoon",
+                            options: ["Boon of Dimensional Travel", "Other Epic Boon"]
+                        }
+                    }
+                ],
+                preparedSpells: 14,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2 },
+                weaponMastery: 2
+            },
+            20: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Foe Slayer",
+                        description: "Add Wisdom modifier to attack or damage rolls against favored enemies"
+                    }
+                ],
+                preparedSpells: 14,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2 },
+                weaponMastery: 2
+            }
+        }
     },
 
     rogue: {

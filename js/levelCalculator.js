@@ -181,6 +181,9 @@ class LevelCalculator {
         if (levelData.focusPoints !== undefined) {
             info.focusPoints = levelData.focusPoints;
         }
+        if (levelData.layOnHands !== undefined) {
+            info.layOnHands = levelData.layOnHands;
+        }
 
         return info;
     }

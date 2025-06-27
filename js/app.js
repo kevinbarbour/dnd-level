@@ -269,6 +269,9 @@ class DnDLevelUpApp {
         if (info.focusPoints) {
             html += `<div class="feature-item mb-sm"><strong>Focus Points:</strong> ${info.focusPoints}</div>`;
         }
+        if (info.layOnHands) {
+            html += `<div class="feature-item mb-sm"><strong>Lay on Hands Pool:</strong> ${info.layOnHands} HP</div>`;
+        }
         
         progressDiv.innerHTML = html;
         container.appendChild(progressDiv);
@@ -366,6 +369,8 @@ class DnDLevelUpApp {
             'druid': 'Choose your circle',
             'fighter': 'Choose your martial archetype',
             'monk': 'Choose your monastic tradition',
+            'paladin': 'Choose your sacred oath',
+            'ranger': 'Choose your ranger archetype',
             'rogue': 'Choose your roguish archetype',
             'sorcerer': 'Choose your sorcerous origin',
             'warlock': 'Choose your otherworldly patron',
