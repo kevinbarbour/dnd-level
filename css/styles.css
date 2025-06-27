@@ -651,6 +651,14 @@ body {
         max-width: none;
         min-height: 100px;
     }
+    
+    .theme-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        top: 0.5rem;
+        right: 0.5rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -704,6 +712,139 @@ body {
     font-family: var(--font-heading);
     display: block;
     margin-bottom: 2px;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid var(--border-gold);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(180deg);
+}
+
+.theme-toggle .sun-icon {
+    display: block;
+}
+
+.theme-toggle .moon-icon {
+    display: none;
+}
+
+[data-theme="dark"] .theme-toggle .sun-icon {
+    display: none;
+}
+
+[data-theme="dark"] .theme-toggle .moon-icon {
+    display: block;
+}
+
+/* Dark Theme Variables */
+[data-theme="dark"] {
+    --primary-dark: #0a0a0a;
+    --secondary-dark: #1a1a1a;
+    --accent-purple: #8b5fbf;
+    --accent-gold: #ffd700;
+    --parchment: #2a2a2a;
+    --parchment-dark: #1f1f1f;
+    --text-light: #e0e0e0;
+    --text-dark: #e0e0e0;
+    --border-gold: #cc9900;
+    --shadow-dark: rgba(0, 0, 0, 0.8);
+    --shadow-light: rgba(255, 215, 0, 0.2);
+}
+
+/* Dark Theme Specific Adjustments */
+[data-theme="dark"] body {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+}
+
+[data-theme="dark"] .header {
+    background: linear-gradient(45deg, #2a2a2a, #1a1a1a);
+}
+
+[data-theme="dark"] .setup-card,
+[data-theme="dark"] .level-up-card,
+[data-theme="dark"] .export-card {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+}
+
+[data-theme="dark"] .form-control {
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--text-light);
+}
+
+[data-theme="dark"] .form-control:focus {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .class-btn {
+    background: linear-gradient(135deg, rgba(42, 42, 42, 0.9), rgba(31, 31, 31, 0.9));
+    color: var(--text-light);
+}
+
+[data-theme="dark"] .class-btn.selected {
+    background: linear-gradient(135deg, var(--accent-gold), var(--border-gold));
+    color: #000;
+}
+
+[data-theme="dark"] .choice-group {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .choice-display {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .choice-list li {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(204, 153, 0, 0.3);
+}
+
+[data-theme="dark"] .choice-list li:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .slots-table {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .slots-table th {
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+}
+
+[data-theme="dark"] .slots-table td {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .feat-list {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .feat-item {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .feat-item:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .footer {
+    border-top-color: var(--border-gold);
 }
 
 /* Custom Scrollbar */

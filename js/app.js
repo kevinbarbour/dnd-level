@@ -1,9 +1,70 @@
+// Theme Manager
+class ThemeManager {
+    constructor() {
+        this.theme = this.getStoredTheme() || this.getSystemTheme();
+        this.applyTheme();
+        this.initializeToggle();
+        this.watchSystemTheme();
+    }
+    
+    getSystemTheme() {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    
+    getStoredTheme() {
+        try {
+            return localStorage.getItem('theme');
+        } catch (e) {
+            console.warn('Could not access localStorage:', e);
+            return null;
+        }
+    }
+    
+    applyTheme() {
+        document.documentElement.setAttribute('data-theme', this.theme);
+    }
+    
+    toggleTheme() {
+        this.theme = this.theme === 'light' ? 'dark' : 'light';
+        this.applyTheme();
+        this.saveTheme();
+    }
+    
+    saveTheme() {
+        try {
+            localStorage.setItem('theme', this.theme);
+        } catch (e) {
+            console.warn('Could not save theme to localStorage:', e);
+        }
+    }
+    
+    initializeToggle() {
+        const toggleButton = document.querySelector('.theme-toggle');
+        if (toggleButton) {
+            toggleButton.addEventListener('click', () => this.toggleTheme());
+        }
+    }
+    
+    watchSystemTheme() {
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQuery.addEventListener('change', (e) => {
+            // Only update if user hasn't manually set a preference
+            if (!this.getStoredTheme()) {
+                this.theme = e.matches ? 'dark' : 'light';
+                this.applyTheme();
+            }
+        });
+    }
+}
+
 // Main Application Logic
 class DnDLevelUpApp {
     constructor() {
         this.currentLevelUpData = null;
+        this.themeManager = new ThemeManager();
         this.initializeEventListeners();
         this.updateCalculateButton();
+        this.parseURLParameters();
     }
 
     // Initialize all event listeners
@@ -42,6 +103,7 @@ class DnDLevelUpApp {
         // Level selection
         document.getElementById('current-level').addEventListener('input', () => {
             this.updateCalculateButton();
+            this.updateURL();
         });
 
         // Calculate button
@@ -66,6 +128,9 @@ class DnDLevelUpApp {
         
         // Update calculate button
         this.updateCalculateButton();
+        
+        // Update URL
+        this.updateURL();
     }
 
     // Update the calculate button state
@@ -338,11 +403,7 @@ class DnDLevelUpApp {
         const className = document.getElementById('selected-class').value;
         const classInfo = classData[className];
         
-        // Get appropriate instruction text for each class
-        const instructionText = this.getSubclassInstructionText(className);
-        
         let html = '<div class="choice-display">';
-        html += `<p class="choice-instruction">${instructionText}</p>`;
         html += '<h4>Available Subclasses:</h4>';
         html += '<ul class="choice-list">';
         
@@ -517,6 +578,9 @@ class DnDLevelUpApp {
         // Update button state
         this.updateCalculateButton();
         
+        // Clear URL parameters
+        this.updateURL();
+        
         // Scroll to top smoothly
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -536,6 +600,56 @@ class DnDLevelUpApp {
 
     showSuccess(message) {
         alert(message);
+    }
+
+    // Parse URL parameters on page load
+    parseURLParameters() {
+        const params = new URLSearchParams(window.location.search);
+        const className = params.get('class');
+        const level = params.get('level');
+        
+        if (className && this.isValidClass(className)) {
+            // Find and select the class button
+            const button = document.querySelector(`[data-class="${className}"]`);
+            if (button) {
+                this.selectClass(button);
+            }
+        }
+        
+        if (level && levelCalculator.validateLevel(level)) {
+            document.getElementById('current-level').value = level;
+            this.updateCalculateButton();
+        }
+        
+        // Auto-calculate if both parameters are present and valid
+        if (className && level && this.isValidClass(className) && levelCalculator.validateLevel(level)) {
+            // Small delay to ensure DOM is ready
+            setTimeout(() => {
+                const calculateBtn = document.getElementById('calculate-btn');
+                if (!calculateBtn.disabled) {
+                    this.calculateLevelUp();
+                }
+            }, 100);
+        }
+    }
+
+    // Update URL with current selections
+    updateURL() {
+        const className = document.getElementById('selected-class').value;
+        const level = document.getElementById('current-level').value;
+        
+        const params = new URLSearchParams();
+        if (className) params.set('class', className);
+        if (level && levelCalculator.validateLevel(level)) params.set('level', level);
+        
+        // Update URL without page reload
+        const newURL = params.toString() ? `${window.location.pathname}?${params}` : window.location.pathname;
+        window.history.replaceState({}, '', newURL);
+    }
+
+    // Check if class name is valid
+    isValidClass(className) {
+        return classData.hasOwnProperty(className);
     }
 }
 
