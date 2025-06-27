@@ -366,8 +366,8 @@ body {
 
 /* Class Button Grid */
 .class-button-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-sm);
 }
@@ -390,6 +390,14 @@ body {
     overflow: hidden;
     min-height: 80px;
     justify-content: center;
+    flex: 1 1 200px;
+    min-width: 200px;
+    max-width: 300px;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
 }
 
 .class-btn::before {
@@ -523,6 +531,13 @@ body {
     .btn {
         width: 100%;
     }
+    
+    .class-btn {
+        flex: 1 1 150px;
+        min-width: 150px;
+        max-width: none;
+        min-height: 100px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -534,6 +549,14 @@ body {
     .level-up-card h2,
     .export-card h2 {
         font-size: 1.5rem;
+    }
+    
+    .class-btn {
+        flex: 1 1 100%;
+        min-width: 100%;
+        max-width: none;
+        min-height: 120px;
+        font-size: 1.1rem;
     }
 }
 

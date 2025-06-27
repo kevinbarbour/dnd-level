@@ -15,8 +15,27 @@ class DnDLevelUpApp {
 
         // Class button selection
         document.querySelectorAll('.class-btn').forEach(btn => {
+            // Add click event
             btn.addEventListener('click', (e) => {
+                e.preventDefault();
                 this.selectClass(e.target.closest('.class-btn'));
+            });
+            
+            // Add touch events for iOS Safari
+            btn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                btn.style.transform = 'translateY(-2px)';
+            });
+            
+            btn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                btn.style.transform = '';
+                this.selectClass(e.target.closest('.class-btn'));
+            });
+            
+            btn.addEventListener('touchcancel', (e) => {
+                e.preventDefault();
+                btn.style.transform = '';
             });
         });
 
