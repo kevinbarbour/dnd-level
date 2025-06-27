@@ -672,12 +672,306 @@ const classData = {
         primaryAbility: "Wisdom",
         hitDie: "d8",
         savingThrows: ["Wisdom", "Charisma"],
+        skillChoices: ["Choose 2: History, Insight, Medicine, Persuasion, or Religion"],
+        weaponProficiencies: ["Simple weapons"],
+        armorTraining: ["Light and Medium armor and Shields"],
         subclassLevel: 3,
         subclasses: {
-            "life": { name: "Life Domain", description: "Coming Soon" }
+            "life": {
+                name: "Life Domain",
+                description: "Preserve Life and Heal the Wounded"
+            }
         },
-        stub: true,
-        stubMessage: "Full Cleric implementation coming soon! This will include Spellcasting, Channel Divinity, and Divine Domain features."
+        levels: {
+            1: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Spellcasting",
+                        description: "Cast spells using Wisdom. Know 3 cantrips, prepare 2 level 1 spells + Wisdom modifier"
+                    },
+                    {
+                        name: "Divine Order",
+                        description: "Choose Protector or Thaumaturge",
+                        choices: {
+                            type: "divineOrder",
+                            options: ["Protector (Heavy armor + Martial weapons)", "Thaumaturge (Blessed Strikes cantrip)"]
+                        }
+                    }
+                ],
+                cantrips: 3,
+                preparedSpells: "2 + Wis mod",
+                spellSlots: { 1: 2 }
+            },
+            2: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Channel Divinity",
+                        description: "Use divine energy for Turn Undead and domain features, 1 use per Short/Long Rest"
+                    },
+                    {
+                        name: "Turn Undead",
+                        description: "Force Undead within 30 feet to make Wisdom saves or be Turned"
+                    }
+                ],
+                cantrips: 3,
+                preparedSpells: "3 + Wis mod",
+                spellSlots: { 1: 3 }
+            },
+            3: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Cleric Subclass",
+                        description: "Choose your divine domain",
+                        choices: {
+                            type: "subclass",
+                            options: ["life"]
+                        }
+                    }
+                ],
+                subclassFeatures: {
+                    life: [
+                        {
+                            name: "Domain Spells",
+                            description: "Always have Cure Wounds and Healing Word prepared (don't count against limit)"
+                        },
+                        {
+                            name: "Disciple of Life",
+                            description: "Healing spells restore additional HP equal to 2 + spell level"
+                        },
+                        {
+                            name: "Preserve Life",
+                            description: "Channel Divinity to heal creatures within 30 feet for 5 × Cleric level HP total"
+                        }
+                    ]
+                },
+                cantrips: 3,
+                preparedSpells: "4 + Wis mod",
+                spellSlots: { 1: 4, 2: 2 }
+            },
+            4: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: "5 + Wis mod",
+                spellSlots: { 1: 4, 2: 3 }
+            },
+            5: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Sear Undead",
+                        description: "When you Turn Undead, deal Radiant damage equal to Wisdom modifier"
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: "6 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 2 }
+            },
+            6: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Channel Divinity (2 uses)",
+                        description: "Use Channel Divinity twice per Short/Long Rest"
+                    }
+                ],
+                subclassFeatures: {
+                    life: [
+                        {
+                            name: "Blessed Healer",
+                            description: "When you heal others with level 1+ spells, regain 2 + spell level HP"
+                        }
+                    ]
+                },
+                cantrips: 4,
+                preparedSpells: "7 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3 }
+            },
+            7: {
+                proficiencyBonus: 3,
+                cantrips: 4,
+                preparedSpells: "8 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 1 }
+            },
+            8: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    },
+                    {
+                        name: "Blessed Strikes or Potent Spellcasting",
+                        description: "Choose enhancement for attacks or spells",
+                        choices: {
+                            type: "divineStrike",
+                            options: ["Blessed Strikes (weapon/cantrip +Wis mod Radiant)", "Potent Spellcasting (cantrips +Wis mod)"]
+                        }
+                    }
+                ],
+                subclassFeatures: {
+                    life: [
+                        {
+                            name: "Divine Strike",
+                            description: "Weapon attacks deal extra 1d8 Radiant damage (increases to 2d8 at level 14)"
+                        }
+                    ]
+                },
+                cantrips: 4,
+                preparedSpells: "9 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 2 }
+            },
+            9: {
+                proficiencyBonus: 4,
+                cantrips: 4,
+                preparedSpells: "10 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 1 }
+            },
+            10: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Divine Intervention",
+                        description: "Call upon deity for aid, 1 use per Long Rest"
+                    }
+                ],
+                cantrips: 5,
+                preparedSpells: "11 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2 }
+            },
+            11: {
+                proficiencyBonus: 4,
+                cantrips: 5,
+                preparedSpells: "12 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1 }
+            },
+            12: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 5,
+                preparedSpells: "12 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1 }
+            },
+            13: {
+                proficiencyBonus: 5,
+                cantrips: 5,
+                preparedSpells: "13 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1 }
+            },
+            14: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Improved Blessed Strikes or Potent Spellcasting",
+                        description: "Enhancement improves based on level 8 choice"
+                    }
+                ],
+                cantrips: 5,
+                preparedSpells: "13 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1 }
+            },
+            15: {
+                proficiencyBonus: 5,
+                cantrips: 5,
+                preparedSpells: "14 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1 }
+            },
+            16: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 5,
+                preparedSpells: "14 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1 }
+            },
+            17: {
+                proficiencyBonus: 6,
+                subclassFeatures: {
+                    life: [
+                        {
+                            name: "Supreme Healing",
+                            description: "When you roll healing dice, treat any 1s as 2s"
+                        }
+                    ]
+                },
+                cantrips: 5,
+                preparedSpells: "15 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1, 9: 1 }
+            },
+            18: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Channel Divinity (3 uses)",
+                        description: "Use Channel Divinity three times per Short/Long Rest"
+                    }
+                ],
+                cantrips: 5,
+                preparedSpells: "15 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 1, 7: 1, 8: 1, 9: 1 }
+            },
+            19: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Epic Boon",
+                        description: "Gain an Epic Boon feat",
+                        choices: {
+                            type: "epicBoon",
+                            options: ["Boon of Spell Recall", "Other Epic Boon"]
+                        }
+                    }
+                ],
+                cantrips: 5,
+                preparedSpells: "15 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 2, 7: 1, 8: 1, 9: 1 }
+            },
+            20: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Greater Divine Intervention",
+                        description: "Divine Intervention automatically succeeds and can be used again after 2d4 Long Rests"
+                    }
+                ],
+                cantrips: 5,
+                preparedSpells: "15 + Wis mod",
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 2, 7: 2, 8: 1, 9: 1 }
+            }
+        }
     },
 
     druid: {
@@ -1074,12 +1368,311 @@ const classData = {
         primaryAbility: "Dexterity",
         hitDie: "d8",
         savingThrows: ["Dexterity", "Intelligence"],
+        skillChoices: ["Choose 4: Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Persuasion, Sleight of Hand, or Stealth"],
+        weaponProficiencies: ["Simple weapons and Martial weapons that have the Finesse or Light property"],
+        armorTraining: ["Light armor"],
         subclassLevel: 3,
         subclasses: {
-            "thief": { name: "Thief", description: "Coming Soon" }
+            "thief": {
+                name: "Thief",
+                description: "Hunt for Treasure as a Classic Adventurer"
+            }
         },
-        stub: true,
-        stubMessage: "Full Rogue implementation coming soon! This will include Sneak Attack, Thieves' Cant, and Roguish Archetype features."
+        levels: {
+            1: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Expertise",
+                        description: "Gain Expertise in 2 skills (Sleight of Hand and Stealth recommended)",
+                        choices: {
+                            type: "skill",
+                            count: 2,
+                            options: ["Sleight of Hand", "Stealth", "Any skill you're proficient in"]
+                        }
+                    },
+                    {
+                        name: "Sneak Attack",
+                        description: "Deal extra 1d6 damage once per turn with Finesse or Ranged weapons when you have Advantage"
+                    },
+                    {
+                        name: "Thieves' Cant",
+                        description: "Know Thieves' Cant and one other language"
+                    },
+                    {
+                        name: "Weapon Mastery",
+                        description: "Use mastery properties of 2 weapons with which you have proficiency",
+                        choices: {
+                            type: "weaponMastery",
+                            count: 2,
+                            options: ["Dagger", "Shortbow", "Scimitar", "Shortsword", "Rapier"]
+                        }
+                    }
+                ],
+                sneakAttack: "1d6"
+            },
+            2: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Cunning Action",
+                        description: "Take Dash, Disengage, or Hide as a Bonus Action"
+                    }
+                ],
+                sneakAttack: "1d6"
+            },
+            3: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Rogue Subclass",
+                        description: "Choose your roguish archetype",
+                        choices: {
+                            type: "subclass",
+                            options: ["thief"]
+                        }
+                    },
+                    {
+                        name: "Steady Aim",
+                        description: "Gain Advantage on next attack as Bonus Action if you haven't moved (Speed becomes 0)"
+                    }
+                ],
+                subclassFeatures: {
+                    thief: [
+                        {
+                            name: "Fast Hands",
+                            description: "Use Sleight of Hand checks, Utilize action, or Magic action with magic items as Bonus Action"
+                        },
+                        {
+                            name: "Second-Story Work",
+                            description: "Gain Climb Speed equal to Speed; use Dexterity for jump distance"
+                        }
+                    ]
+                },
+                sneakAttack: "2d6"
+            },
+            4: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                sneakAttack: "2d6"
+            },
+            5: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Cunning Strike",
+                        description: "Add effects to Sneak Attack by forgoing damage dice",
+                        choices: {
+                            type: "cunningStrike",
+                            options: ["Poison (1d6)", "Trip (1d6)", "Withdraw (1d6)"]
+                        }
+                    },
+                    {
+                        name: "Uncanny Dodge",
+                        description: "Halve damage from one attack per turn as a Reaction"
+                    }
+                ],
+                sneakAttack: "3d6"
+            },
+            6: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Expertise",
+                        description: "Gain Expertise in 2 more skills",
+                        choices: {
+                            type: "skill",
+                            count: 2,
+                            options: ["Any skill you're proficient in"]
+                        }
+                    }
+                ],
+                sneakAttack: "3d6"
+            },
+            7: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Evasion",
+                        description: "Take no damage on successful Dex saves, half damage on failures"
+                    },
+                    {
+                        name: "Reliable Talent",
+                        description: "Treat d20 rolls of 9 or lower as 10 for skill and tool checks"
+                    }
+                ],
+                sneakAttack: "4d6"
+            },
+            8: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                sneakAttack: "4d6"
+            },
+            9: {
+                proficiencyBonus: 4,
+                subclassFeatures: {
+                    thief: [
+                        {
+                            name: "Supreme Sneak",
+                            description: "Gain Stealth Attack Cunning Strike option (1d6): Hide action's Invisible condition doesn't end if you end turn behind cover"
+                        }
+                    ]
+                },
+                sneakAttack: "5d6"
+            },
+            10: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                sneakAttack: "5d6"
+            },
+            11: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Improved Cunning Strike",
+                        description: "Use up to 2 Cunning Strike effects when dealing Sneak Attack damage"
+                    }
+                ],
+                sneakAttack: "6d6"
+            },
+            12: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                sneakAttack: "6d6"
+            },
+            13: {
+                proficiencyBonus: 5,
+                subclassFeatures: {
+                    thief: [
+                        {
+                            name: "Use Magic Device",
+                            description: "Attune to 4 magic items; roll d6 when using charges (6 = no charge expended); use any Spell Scroll with Intelligence"
+                        }
+                    ]
+                },
+                sneakAttack: "7d6"
+            },
+            14: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Devious Strikes",
+                        description: "Gain additional Cunning Strike options",
+                        choices: {
+                            type: "cunningStrike",
+                            options: ["Daze (2d6)", "Knock Out (6d6)", "Obscure (3d6)", "Poison (1d6)", "Trip (1d6)", "Withdraw (1d6)"]
+                        }
+                    }
+                ],
+                sneakAttack: "7d6"
+            },
+            15: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Slippery Mind",
+                        description: "Gain proficiency in Wisdom and Charisma saving throws"
+                    }
+                ],
+                sneakAttack: "8d6"
+            },
+            16: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                sneakAttack: "8d6"
+            },
+            17: {
+                proficiencyBonus: 6,
+                subclassFeatures: {
+                    thief: [
+                        {
+                            name: "Thief's Reflexes",
+                            description: "Take two turns in first round of combat (normal Initiative and Initiative - 10)"
+                        }
+                    ]
+                },
+                sneakAttack: "9d6"
+            },
+            18: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Elusive",
+                        description: "No attack roll can have Advantage against you unless you're Incapacitated"
+                    }
+                ],
+                sneakAttack: "9d6"
+            },
+            19: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Epic Boon",
+                        description: "Gain an Epic Boon feat",
+                        choices: {
+                            type: "epicBoon",
+                            options: ["Boon of the Night Spirit", "Other Epic Boon"]
+                        }
+                    }
+                ],
+                sneakAttack: "10d6"
+            },
+            20: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Stroke of Luck",
+                        description: "Turn a failed D20 Test into a 20, once per Short/Long Rest"
+                    }
+                ],
+                sneakAttack: "10d6"
+            }
+        }
     },
 
     sorcerer: {
@@ -1087,12 +1680,317 @@ const classData = {
         primaryAbility: "Charisma",
         hitDie: "d6",
         savingThrows: ["Constitution", "Charisma"],
+        skillChoices: ["Choose 2: Arcana, Deception, Insight, Intimidation, Persuasion, or Religion"],
+        weaponProficiencies: ["Simple weapons"],
+        armorTraining: ["None"],
         subclassLevel: 3,
         subclasses: {
-            "draconic": { name: "Draconic Sorcery", description: "Coming Soon" }
+            "draconic": {
+                name: "Draconic Sorcery",
+                description: "Channel the Magic of Dragons"
+            }
         },
-        stub: true,
-        stubMessage: "Full Sorcerer implementation coming soon! This will include Spellcasting, Metamagic, and Sorcerous Origin features."
+        levels: {
+            1: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Spellcasting",
+                        description: "Cast spells using Charisma. Know 4 cantrips and 2 level 1 spells"
+                    },
+                    {
+                        name: "Innate Sorcery",
+                        description: "Add Charisma modifier to one damage roll of Sorcerer cantrips"
+                    }
+                ],
+                cantrips: 4,
+                spellsKnown: 2,
+                spellSlots: { 1: 2 },
+                sorceryPoints: 0
+            },
+            2: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Font of Magic",
+                        description: "Gain 2 Sorcery Points to fuel Metamagic and create spell slots"
+                    },
+                    {
+                        name: "Metamagic",
+                        description: "Choose 2 Metamagic options to modify spells",
+                        choices: {
+                            type: "metamagic",
+                            count: 2,
+                            options: ["Careful Spell", "Distant Spell", "Empowered Spell", "Extended Spell", "Heightened Spell", "Quickened Spell", "Subtle Spell", "Twinned Spell"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                spellsKnown: 3,
+                spellSlots: { 1: 3 },
+                sorceryPoints: 2
+            },
+            3: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Sorcerer Subclass",
+                        description: "Choose your sorcerous origin",
+                        choices: {
+                            type: "subclass",
+                            options: ["draconic"]
+                        }
+                    }
+                ],
+                subclassFeatures: {
+                    draconic: [
+                        {
+                            name: "Draconic Resilience",
+                            description: "HP maximum increases by 1 per Sorcerer level; AC = 13 + Dex modifier when not wearing armor"
+                        },
+                        {
+                            name: "Draconic Ancestor",
+                            description: "Choose a dragon type for damage resistance and spell affinity",
+                            choices: {
+                                type: "dragonAncestor",
+                                options: ["Black (Acid)", "Blue (Lightning)", "Brass (Fire)", "Bronze (Lightning)", "Copper (Acid)", "Gold (Fire)", "Green (Poison)", "Red (Fire)", "Silver (Cold)", "White (Cold)"]
+                            }
+                        }
+                    ]
+                },
+                cantrips: 4,
+                spellsKnown: 4,
+                spellSlots: { 1: 4, 2: 2 },
+                sorceryPoints: 3
+            },
+            4: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 5,
+                spellsKnown: 5,
+                spellSlots: { 1: 4, 2: 3 },
+                sorceryPoints: 4
+            },
+            5: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Sorcerous Restoration",
+                        description: "Regain 4 Sorcery Points when you finish a Long Rest"
+                    }
+                ],
+                cantrips: 5,
+                spellsKnown: 6,
+                spellSlots: { 1: 4, 2: 3, 3: 2 },
+                sorceryPoints: 5
+            },
+            6: {
+                proficiencyBonus: 3,
+                subclassFeatures: {
+                    draconic: [
+                        {
+                            name: "Elemental Affinity",
+                            description: "Add Charisma modifier to damage rolls of spells that deal your draconic ancestor's damage type"
+                        }
+                    ]
+                },
+                cantrips: 5,
+                spellsKnown: 7,
+                spellSlots: { 1: 4, 2: 3, 3: 3 },
+                sorceryPoints: 6
+            },
+            7: {
+                proficiencyBonus: 3,
+                cantrips: 5,
+                spellsKnown: 8,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 1 },
+                sorceryPoints: 7
+            },
+            8: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 5,
+                spellsKnown: 9,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 2 },
+                sorceryPoints: 8
+            },
+            9: {
+                proficiencyBonus: 4,
+                cantrips: 5,
+                spellsKnown: 10,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 1 },
+                sorceryPoints: 9
+            },
+            10: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Metamagic",
+                        description: "Learn 1 additional Metamagic option",
+                        choices: {
+                            type: "metamagic",
+                            count: 1,
+                            options: ["Careful Spell", "Distant Spell", "Empowered Spell", "Extended Spell", "Heightened Spell", "Quickened Spell", "Subtle Spell", "Twinned Spell"]
+                        }
+                    }
+                ],
+                cantrips: 6,
+                spellsKnown: 11,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2 },
+                sorceryPoints: 10
+            },
+            11: {
+                proficiencyBonus: 4,
+                cantrips: 6,
+                spellsKnown: 12,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1 },
+                sorceryPoints: 11
+            },
+            12: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 6,
+                spellsKnown: 12,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1 },
+                sorceryPoints: 12
+            },
+            13: {
+                proficiencyBonus: 5,
+                cantrips: 6,
+                spellsKnown: 13,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1 },
+                sorceryPoints: 13
+            },
+            14: {
+                proficiencyBonus: 5,
+                subclassFeatures: {
+                    draconic: [
+                        {
+                            name: "Dragon Wings",
+                            description: "Sprout dragon wings as a Bonus Action, gaining 60-foot Fly Speed for 1 hour"
+                        }
+                    ]
+                },
+                cantrips: 6,
+                spellsKnown: 13,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1 },
+                sorceryPoints: 14
+            },
+            15: {
+                proficiencyBonus: 5,
+                cantrips: 6,
+                spellsKnown: 14,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1 },
+                sorceryPoints: 15
+            },
+            16: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 6,
+                spellsKnown: 14,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1 },
+                sorceryPoints: 16
+            },
+            17: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Metamagic",
+                        description: "Learn 1 additional Metamagic option",
+                        choices: {
+                            type: "metamagic",
+                            count: 1,
+                            options: ["Careful Spell", "Distant Spell", "Empowered Spell", "Extended Spell", "Heightened Spell", "Quickened Spell", "Subtle Spell", "Twinned Spell"]
+                        }
+                    }
+                ],
+                cantrips: 6,
+                spellsKnown: 15,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1, 9: 1 },
+                sorceryPoints: 17
+            },
+            18: {
+                proficiencyBonus: 6,
+                subclassFeatures: {
+                    draconic: [
+                        {
+                            name: "Draconic Presence",
+                            description: "Emanate 60-foot aura of awe or fear as a Bonus Action, affecting creatures of your choice"
+                        }
+                    ]
+                },
+                cantrips: 6,
+                spellsKnown: 15,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 1, 7: 1, 8: 1, 9: 1 },
+                sorceryPoints: 18
+            },
+            19: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Epic Boon",
+                        description: "Gain an Epic Boon feat",
+                        choices: {
+                            type: "epicBoon",
+                            options: ["Boon of Spell Recall", "Other Epic Boon"]
+                        }
+                    }
+                ],
+                cantrips: 6,
+                spellsKnown: 15,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 2, 7: 1, 8: 1, 9: 1 },
+                sorceryPoints: 19
+            },
+            20: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Sorcerous Restoration",
+                        description: "Regain 4 Sorcery Points when you finish a Short Rest"
+                    }
+                ],
+                cantrips: 6,
+                spellsKnown: 15,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 2, 7: 2, 8: 1, 9: 1 },
+                sorceryPoints: 20
+            }
+        }
     },
 
     warlock: {
@@ -1100,12 +1998,395 @@ const classData = {
         primaryAbility: "Charisma",
         hitDie: "d8",
         savingThrows: ["Wisdom", "Charisma"],
+        skillChoices: ["Choose 2: Arcana, Deception, History, Intimidation, Investigation, Nature, or Religion"],
+        weaponProficiencies: ["Simple weapons"],
+        armorTraining: ["Light armor"],
         subclassLevel: 3,
         subclasses: {
-            "fiend": { name: "Fiend Patron", description: "Coming Soon" }
+            "fiend": {
+                name: "Fiend Patron",
+                description: "Make a Pact with a Fiendish Being"
+            }
         },
-        stub: true,
-        stubMessage: "Full Warlock implementation coming soon! This will include Pact Magic, Eldritch Invocations, and Otherworldly Patron features."
+        levels: {
+            1: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Pact Magic",
+                        description: "Cast spells using Charisma. Know 2 cantrips and 2 level 1 spells, 1 spell slot"
+                    },
+                    {
+                        name: "Otherworldly Patron",
+                        description: "Choose the entity you've made a pact with",
+                        choices: {
+                            type: "subclass",
+                            options: ["fiend"]
+                        }
+                    }
+                ],
+                subclassFeatures: {
+                    fiend: [
+                        {
+                            name: "Dark One's Blessing",
+                            description: "Gain temporary HP equal to Charisma modifier + spell level when you reduce a hostile creature to 0 HP"
+                        }
+                    ]
+                },
+                cantrips: 2,
+                spellsKnown: 2,
+                spellSlots: { 1: 1 },
+                invocationsKnown: 0
+            },
+            2: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Eldritch Invocations",
+                        description: "Choose 2 Eldritch Invocations to customize your abilities",
+                        choices: {
+                            type: "invocation",
+                            count: 2,
+                            options: ["Armor of Shadows", "Beast Speech", "Beguiling Influence", "Devil's Sight", "Eldritch Sight", "Eyes of the Rune Keeper", "Fiendish Vigor", "Gaze of Two Minds"]
+                        }
+                    }
+                ],
+                cantrips: 2,
+                spellsKnown: 3,
+                spellSlots: { 1: 2 },
+                invocationsKnown: 2
+            },
+            3: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Pact Boon",
+                        description: "Choose a supernatural gift from your patron",
+                        choices: {
+                            type: "pactBoon",
+                            options: ["Pact of the Blade", "Pact of the Chain", "Pact of the Tome"]
+                        }
+                    }
+                ],
+                cantrips: 2,
+                spellsKnown: 4,
+                spellSlots: { 2: 2 },
+                invocationsKnown: 2
+            },
+            4: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 3,
+                spellsKnown: 5,
+                spellSlots: { 2: 2 },
+                invocationsKnown: 2
+            },
+            5: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Eldritch Invocations",
+                        description: "Learn 1 additional Eldritch Invocation",
+                        choices: {
+                            type: "invocation",
+                            count: 1,
+                            options: ["Maddening Hex", "Mire the Mind", "One with Shadows", "Sign of Ill Omen", "Thief of Five Fates", "Thirsting Blade"]
+                        }
+                    }
+                ],
+                subclassFeatures: {
+                    fiend: [
+                        {
+                            name: "Dark One's Own Luck",
+                            description: "Add d10 to one ability check or saving throw per Short/Long Rest"
+                        }
+                    ]
+                },
+                cantrips: 3,
+                spellsKnown: 6,
+                spellSlots: { 3: 2 },
+                invocationsKnown: 3
+            },
+            6: {
+                proficiencyBonus: 3,
+                subclassFeatures: {
+                    fiend: [
+                        {
+                            name: "Fiendish Resilience",
+                            description: "Choose one damage type to resist when you finish a Short/Long Rest"
+                        }
+                    ]
+                },
+                cantrips: 3,
+                spellsKnown: 7,
+                spellSlots: { 3: 2 },
+                invocationsKnown: 3
+            },
+            7: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Eldritch Invocations",
+                        description: "Learn 1 additional Eldritch Invocation",
+                        choices: {
+                            type: "invocation",
+                            count: 1,
+                            options: ["Bewitching Whispers", "Dreadful Word", "Sculptor of Flesh"]
+                        }
+                    }
+                ],
+                cantrips: 3,
+                spellsKnown: 8,
+                spellSlots: { 4: 2 },
+                invocationsKnown: 4
+            },
+            8: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 3,
+                spellsKnown: 9,
+                spellSlots: { 4: 2 },
+                invocationsKnown: 4
+            },
+            9: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Eldritch Invocations",
+                        description: "Learn 1 additional Eldritch Invocation",
+                        choices: {
+                            type: "invocation",
+                            count: 1,
+                            options: ["Ascendant Step", "Minions of Chaos", "Otherworldly Leap", "Whispers of the Grave"]
+                        }
+                    }
+                ],
+                cantrips: 3,
+                spellsKnown: 10,
+                spellSlots: { 5: 2 },
+                invocationsKnown: 5
+            },
+            10: {
+                proficiencyBonus: 4,
+                subclassFeatures: {
+                    fiend: [
+                        {
+                            name: "Fiendish Resilience",
+                            description: "Resistance to two damage types instead of one"
+                        }
+                    ]
+                },
+                cantrips: 4,
+                spellsKnown: 10,
+                spellSlots: { 5: 2 },
+                invocationsKnown: 5
+            },
+            11: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Mystic Arcanum (6th level)",
+                        description: "Choose one 6th-level spell to cast once per Long Rest",
+                        choices: {
+                            type: "mysticArcanum",
+                            level: 6,
+                            options: ["Any 6th-level Warlock spell"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                spellsKnown: 11,
+                spellSlots: { 5: 3 },
+                invocationsKnown: 5
+            },
+            12: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    },
+                    {
+                        name: "Eldritch Invocations",
+                        description: "Learn 1 additional Eldritch Invocation",
+                        choices: {
+                            type: "invocation",
+                            count: 1,
+                            options: ["Chains of Carceri", "Lifedrinker", "Master of Myriad Forms"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                spellsKnown: 11,
+                spellSlots: { 5: 3 },
+                invocationsKnown: 6
+            },
+            13: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Mystic Arcanum (7th level)",
+                        description: "Choose one 7th-level spell to cast once per Long Rest",
+                        choices: {
+                            type: "mysticArcanum",
+                            level: 7,
+                            options: ["Any 7th-level Warlock spell"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                spellsKnown: 12,
+                spellSlots: { 5: 3 },
+                invocationsKnown: 6
+            },
+            14: {
+                proficiencyBonus: 5,
+                subclassFeatures: {
+                    fiend: [
+                        {
+                            name: "Hurl Through Hell",
+                            description: "Banish a creature to the lower planes when you hit with an attack, dealing 10d10 Psychic damage"
+                        }
+                    ]
+                },
+                cantrips: 4,
+                spellsKnown: 12,
+                spellSlots: { 5: 3 },
+                invocationsKnown: 6
+            },
+            15: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Mystic Arcanum (8th level)",
+                        description: "Choose one 8th-level spell to cast once per Long Rest",
+                        choices: {
+                            type: "mysticArcanum",
+                            level: 8,
+                            options: ["Any 8th-level Warlock spell"]
+                        }
+                    },
+                    {
+                        name: "Eldritch Invocations",
+                        description: "Learn 1 additional Eldritch Invocation",
+                        choices: {
+                            type: "invocation",
+                            count: 1,
+                            options: ["Visions of Distant Realms", "Witch Sight"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                spellsKnown: 13,
+                spellSlots: { 5: 3 },
+                invocationsKnown: 7
+            },
+            16: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                spellsKnown: 13,
+                spellSlots: { 5: 3 },
+                invocationsKnown: 7
+            },
+            17: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Mystic Arcanum (9th level)",
+                        description: "Choose one 9th-level spell to cast once per Long Rest",
+                        choices: {
+                            type: "mysticArcanum",
+                            level: 9,
+                            options: ["Any 9th-level Warlock spell"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                spellsKnown: 14,
+                spellSlots: { 5: 4 },
+                invocationsKnown: 7
+            },
+            18: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Eldritch Invocations",
+                        description: "Learn 1 additional Eldritch Invocation",
+                        choices: {
+                            type: "invocation",
+                            count: 1,
+                            options: ["Any Eldritch Invocation"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                spellsKnown: 14,
+                spellSlots: { 5: 4 },
+                invocationsKnown: 8
+            },
+            19: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Epic Boon",
+                        description: "Gain an Epic Boon feat",
+                        choices: {
+                            type: "epicBoon",
+                            options: ["Boon of Spell Recall", "Other Epic Boon"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                spellsKnown: 15,
+                spellSlots: { 5: 4 },
+                invocationsKnown: 8
+            },
+            20: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Eldritch Master",
+                        description: "Regain all expended Pact Magic spell slots when you finish a Short Rest, once per Long Rest"
+                    }
+                ],
+                cantrips: 4,
+                spellsKnown: 15,
+                spellSlots: { 5: 4 },
+                invocationsKnown: 8
+            }
+        }
     },
 
     wizard: {
@@ -1113,12 +2394,287 @@ const classData = {
         primaryAbility: "Intelligence",
         hitDie: "d6",
         savingThrows: ["Intelligence", "Wisdom"],
+        skillChoices: ["Choose 2: Arcana, History, Insight, Investigation, Medicine, Nature, or Religion"],
+        weaponProficiencies: ["Simple weapons"],
+        armorTraining: ["None"],
         subclassLevel: 3,
         subclasses: {
-            "evoker": { name: "Evoker", description: "Coming Soon" }
+            "evoker": {
+                name: "Evoker",
+                description: "Create Explosive Elemental Effects"
+            }
         },
-        stub: true,
-        stubMessage: "Full Wizard implementation coming soon! This will include Spellcasting, Ritual Adept, and Arcane Tradition features."
+        levels: {
+            1: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Spellcasting",
+                        description: "Cast spells using Intelligence. Know 3 cantrips, prepare 4 level 1 spells from spellbook"
+                    },
+                    {
+                        name: "Ritual Adept",
+                        description: "Cast any Ritual spell from your spellbook without preparing it"
+                    },
+                    {
+                        name: "Arcane Recovery",
+                        description: "Regain spell slots on Short Rest (total level ≤ half Wizard level, max level 5)"
+                    }
+                ],
+                cantrips: 3,
+                preparedSpells: 4,
+                spellSlots: { 1: 2 }
+            },
+            2: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Scholar",
+                        description: "Gain Expertise in one skill: Arcana, History, Investigation, Medicine, Nature, or Religion",
+                        choices: {
+                            type: "skill",
+                            count: 1,
+                            options: ["Arcana", "History", "Investigation", "Medicine", "Nature", "Religion"]
+                        }
+                    }
+                ],
+                cantrips: 3,
+                preparedSpells: 5,
+                spellSlots: { 1: 3 }
+            },
+            3: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Wizard Subclass",
+                        description: "Choose your arcane tradition",
+                        choices: {
+                            type: "subclass",
+                            options: ["evoker"]
+                        }
+                    }
+                ],
+                subclassFeatures: {
+                    evoker: [
+                        {
+                            name: "Evocation Savant",
+                            description: "Add 2 Evocation spells to spellbook for free; gain 1 free Evocation spell each time you gain new spell slot levels"
+                        },
+                        {
+                            name: "Potent Cantrip",
+                            description: "Damaging cantrips deal half damage on missed attacks or successful saves"
+                        }
+                    ]
+                },
+                cantrips: 3,
+                preparedSpells: 6,
+                spellSlots: { 1: 4, 2: 2 }
+            },
+            4: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: 7,
+                spellSlots: { 1: 4, 2: 3 }
+            },
+            5: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Memorize Spell",
+                        description: "Replace one prepared spell with another from spellbook on Short Rest"
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: 9,
+                spellSlots: { 1: 4, 2: 3, 3: 2 }
+            },
+            6: {
+                proficiencyBonus: 3,
+                subclassFeatures: {
+                    evoker: [
+                        {
+                            name: "Sculpt Spells",
+                            description: "Choose creatures equal to 1 + spell level to automatically succeed on saves against your Evocation spells"
+                        }
+                    ]
+                },
+                cantrips: 4,
+                preparedSpells: 10,
+                spellSlots: { 1: 4, 2: 3, 3: 3 }
+            },
+            7: {
+                proficiencyBonus: 3,
+                cantrips: 4,
+                preparedSpells: 11,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 1 }
+            },
+            8: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: 12,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 2 }
+            },
+            9: {
+                proficiencyBonus: 4,
+                cantrips: 4,
+                preparedSpells: 14,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 1 }
+            },
+            10: {
+                proficiencyBonus: 4,
+                subclassFeatures: {
+                    evoker: [
+                        {
+                            name: "Empowered Evocation",
+                            description: "Add Intelligence modifier to one damage roll of Wizard Evocation spells"
+                        }
+                    ]
+                },
+                cantrips: 5,
+                preparedSpells: 15,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2 }
+            },
+            11: {
+                proficiencyBonus: 4,
+                cantrips: 5,
+                preparedSpells: 16,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1 }
+            },
+            12: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 5,
+                preparedSpells: 16,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1 }
+            },
+            13: {
+                proficiencyBonus: 5,
+                cantrips: 5,
+                preparedSpells: 17,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1 }
+            },
+            14: {
+                proficiencyBonus: 5,
+                subclassFeatures: {
+                    evoker: [
+                        {
+                            name: "Overchannel",
+                            description: "Deal maximum damage with level 1-5 Wizard spells (first use safe, subsequent uses deal 2d12+ Necrotic per spell level)"
+                        }
+                    ]
+                },
+                cantrips: 5,
+                preparedSpells: 18,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1 }
+            },
+            15: {
+                proficiencyBonus: 5,
+                cantrips: 5,
+                preparedSpells: 19,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1 }
+            },
+            16: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 5,
+                preparedSpells: 21,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1 }
+            },
+            17: {
+                proficiencyBonus: 6,
+                cantrips: 5,
+                preparedSpells: 22,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1, 9: 1 }
+            },
+            18: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Spell Mastery",
+                        description: "Choose one level 1 and one level 2 spell to cast at will",
+                        choices: {
+                            type: "spellMastery",
+                            count: 2,
+                            options: ["Any level 1 spell from spellbook", "Any level 2 spell from spellbook"]
+                        }
+                    }
+                ],
+                cantrips: 5,
+                preparedSpells: 23,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 1, 7: 1, 8: 1, 9: 1 }
+            },
+            19: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Epic Boon",
+                        description: "Gain an Epic Boon feat",
+                        choices: {
+                            type: "epicBoon",
+                            options: ["Boon of Spell Recall", "Other Epic Boon"]
+                        }
+                    }
+                ],
+                cantrips: 5,
+                preparedSpells: 24,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 2, 7: 1, 8: 1, 9: 1 }
+            },
+            20: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Signature Spells",
+                        description: "Choose two level 3 spells to cast once each per Short/Long Rest without expending spell slots",
+                        choices: {
+                            type: "signatureSpells",
+                            count: 2,
+                            options: ["Any level 3 spell from spellbook"]
+                        }
+                    }
+                ],
+                cantrips: 5,
+                preparedSpells: 25,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 2, 7: 2, 8: 1, 9: 1 }
+            }
+        }
     }
 };
 
