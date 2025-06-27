@@ -349,12 +349,322 @@ const classData = {
         primaryAbility: "Charisma",
         hitDie: "d8",
         savingThrows: ["Dexterity", "Charisma"],
+        skillChoices: ["Choose any 3 skills"],
+        weaponProficiencies: ["Simple weapons"],
+        armorTraining: ["Light armor"],
         subclassLevel: 3,
         subclasses: {
-            "lore": { name: "College of Lore", description: "Coming Soon" }
+            "lore": {
+                name: "College of Lore",
+                description: "Plumb the Depths of Magical Knowledge"
+            }
         },
-        stub: true,
-        stubMessage: "Full Bard implementation coming soon! This will include Bardic Inspiration, Spellcasting, and College features."
+        levels: {
+            1: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Bardic Inspiration",
+                        description: "Inspire others with a d6 die, usable Charisma modifier times per Long Rest"
+                    },
+                    {
+                        name: "Spellcasting",
+                        description: "Cast spells using Charisma. Know 2 cantrips, prepare 4 level 1 spells"
+                    }
+                ],
+                cantrips: 2,
+                preparedSpells: 4,
+                spellSlots: { 1: 2 },
+                bardicDie: "d6"
+            },
+            2: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Expertise",
+                        description: "Double proficiency bonus for 2 skills of your choice",
+                        choices: {
+                            type: "skill",
+                            count: 2,
+                            options: ["Performance", "Persuasion", "Any skill you're proficient in"]
+                        }
+                    },
+                    {
+                        name: "Jack of All Trades",
+                        description: "Add half proficiency bonus to non-proficient ability checks"
+                    }
+                ],
+                cantrips: 2,
+                preparedSpells: 5,
+                spellSlots: { 1: 3 },
+                bardicDie: "d6"
+            },
+            3: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Bard Subclass",
+                        description: "Choose your college",
+                        choices: {
+                            type: "subclass",
+                            options: ["lore"]
+                        }
+                    }
+                ],
+                subclassFeatures: {
+                    lore: [
+                        {
+                            name: "Bonus Proficiencies",
+                            description: "Gain proficiency with 3 skills of your choice",
+                            choices: {
+                                type: "skill",
+                                count: 3,
+                                options: ["Any 3 skills"]
+                            }
+                        },
+                        {
+                            name: "Cutting Words",
+                            description: "Use Reaction to subtract Bardic Inspiration die from enemy's attack, ability check, or damage roll"
+                        }
+                    ]
+                },
+                cantrips: 2,
+                preparedSpells: 6,
+                spellSlots: { 1: 4, 2: 2 },
+                bardicDie: "d6"
+            },
+            4: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 3,
+                preparedSpells: 7,
+                spellSlots: { 1: 4, 2: 3 },
+                bardicDie: "d6"
+            },
+            5: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Font of Inspiration",
+                        description: "Regain Bardic Inspiration on Short or Long Rest; expend spell slot to regain use"
+                    }
+                ],
+                cantrips: 3,
+                preparedSpells: 9,
+                spellSlots: { 1: 4, 2: 3, 3: 2 },
+                bardicDie: "d8"
+            },
+            6: {
+                proficiencyBonus: 3,
+                subclassFeatures: {
+                    lore: [
+                        {
+                            name: "Magical Discoveries",
+                            description: "Learn 2 spells from Cleric, Druid, or Wizard spell lists",
+                            choices: {
+                                type: "spell",
+                                count: 2,
+                                options: ["Any Cleric, Druid, or Wizard spell you have slots for"]
+                            }
+                        }
+                    ]
+                },
+                cantrips: 3,
+                preparedSpells: 10,
+                spellSlots: { 1: 4, 2: 3, 3: 3 },
+                bardicDie: "d8"
+            },
+            7: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Countercharm",
+                        description: "Use Reaction to grant Advantage on saves against Charmed or Frightened"
+                    }
+                ],
+                cantrips: 3,
+                preparedSpells: 11,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 1 },
+                bardicDie: "d8"
+            },
+            8: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 3,
+                preparedSpells: 12,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 2 },
+                bardicDie: "d8"
+            },
+            9: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Expertise",
+                        description: "Gain Expertise in 2 more skills",
+                        choices: {
+                            type: "skill",
+                            count: 2,
+                            options: ["Any skill you're proficient in"]
+                        }
+                    }
+                ],
+                cantrips: 3,
+                preparedSpells: 14,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 1 },
+                bardicDie: "d8"
+            },
+            10: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Magical Secrets",
+                        description: "Choose spells from any class when learning new spells"
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: 15,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2 },
+                bardicDie: "d10"
+            },
+            11: {
+                proficiencyBonus: 4,
+                cantrips: 4,
+                preparedSpells: 16,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1 },
+                bardicDie: "d10"
+            },
+            12: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: 16,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1 },
+                bardicDie: "d10"
+            },
+            13: {
+                proficiencyBonus: 5,
+                cantrips: 4,
+                preparedSpells: 17,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1 },
+                bardicDie: "d10"
+            },
+            14: {
+                proficiencyBonus: 5,
+                subclassFeatures: {
+                    lore: [
+                        {
+                            name: "Peerless Skill",
+                            description: "When you fail an ability check or attack, expend Bardic Inspiration to potentially turn it into a success"
+                        }
+                    ]
+                },
+                cantrips: 4,
+                preparedSpells: 17,
+                spellSlots: { 1: 4, 2: 3, 3: 4, 5: 2, 6: 1, 7: 1 },
+                bardicDie: "d10"
+            },
+            15: {
+                proficiencyBonus: 5,
+                cantrips: 4,
+                preparedSpells: 18,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1 },
+                bardicDie: "d12"
+            },
+            16: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: 18,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1 },
+                bardicDie: "d12"
+            },
+            17: {
+                proficiencyBonus: 6,
+                cantrips: 4,
+                preparedSpells: 19,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 2, 6: 1, 7: 1, 8: 1, 9: 1 },
+                bardicDie: "d12"
+            },
+            18: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Superior Inspiration",
+                        description: "Regain uses of Bardic Inspiration when you roll Initiative (minimum of 2)"
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: 20,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 1, 7: 1, 8: 1, 9: 1 },
+                bardicDie: "d12"
+            },
+            19: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Epic Boon",
+                        description: "Gain an Epic Boon feat",
+                        choices: {
+                            type: "epicBoon",
+                            options: ["Boon of Spell Recall", "Other Epic Boon"]
+                        }
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: 21,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 2, 7: 1, 8: 1, 9: 1 },
+                bardicDie: "d12"
+            },
+            20: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Words of Creation",
+                        description: "Always have Power Word Heal and Power Word Kill prepared; can target second creature within 10 feet"
+                    }
+                ],
+                cantrips: 4,
+                preparedSpells: 22,
+                spellSlots: { 1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 2, 7: 2, 8: 1, 9: 1 },
+                bardicDie: "d12"
+            }
+        }
     },
 
     cleric: {
@@ -388,12 +698,336 @@ const classData = {
         primaryAbility: "Strength or Dexterity",
         hitDie: "d10",
         savingThrows: ["Strength", "Constitution"],
+        skillChoices: ["Choose 2: Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Persuasion, Perception, or Survival"],
+        weaponProficiencies: ["Simple and Martial weapons"],
+        armorTraining: ["Light, Medium, and Heavy armor and Shields"],
         subclassLevel: 3,
         subclasses: {
-            "champion": { name: "Champion", description: "Coming Soon" }
+            "champion": {
+                name: "Champion",
+                description: "Pursue Physical Excellence in Combat"
+            }
         },
-        stub: true,
-        stubMessage: "Full Fighter implementation coming soon! This will include Fighting Style, Action Surge, and Martial Archetype features."
+        levels: {
+            1: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Fighting Style",
+                        description: "Choose a Fighting Style feat (Defense recommended)",
+                        choices: {
+                            type: "fightingStyle",
+                            options: ["Defense", "Dueling", "Great Weapon Fighting", "Protection", "Archery", "Two-Weapon Fighting"]
+                        }
+                    },
+                    {
+                        name: "Second Wind",
+                        description: "Regain 1d10 + Fighter level HP as a Bonus Action, 2 uses per Short/Long Rest"
+                    },
+                    {
+                        name: "Weapon Mastery",
+                        description: "Use mastery properties of 3 Simple or Martial weapons",
+                        choices: {
+                            type: "weaponMastery",
+                            count: 3,
+                            options: [
+                                "Battleaxe", "Club", "Dagger", "Dart", "Greataxe", "Greatclub", 
+                                "Greatsword", "Handaxe", "Javelin", "Lance", "Longsword", 
+                                "Mace", "Maul", "Pike", "Quarterstaff", "Rapier", "Scimitar", 
+                                "Shortsword", "Sickle", "Spear", "Trident", "War Pick", "Warhammer"
+                            ]
+                        }
+                    }
+                ],
+                secondWind: 2,
+                weaponMastery: 3
+            },
+            2: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Action Surge",
+                        description: "Take one additional action on your turn, 1 use per Short/Long Rest"
+                    },
+                    {
+                        name: "Tactical Mind",
+                        description: "When you fail an ability check, expend Second Wind use to add 1d10 to the roll"
+                    }
+                ],
+                secondWind: 2,
+                weaponMastery: 3
+            },
+            3: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Fighter Subclass",
+                        description: "Choose your martial archetype",
+                        choices: {
+                            type: "subclass",
+                            options: ["champion"]
+                        }
+                    }
+                ],
+                subclassFeatures: {
+                    champion: [
+                        {
+                            name: "Improved Critical",
+                            description: "Critical hits on 19-20 with weapons and Unarmed Strikes"
+                        },
+                        {
+                            name: "Remarkable Athlete",
+                            description: "Advantage on Initiative rolls and Strength (Athletics) checks; move half Speed after Critical Hit"
+                        }
+                    ]
+                },
+                secondWind: 2,
+                weaponMastery: 3
+            },
+            4: {
+                proficiencyBonus: 2,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                secondWind: 3,
+                weaponMastery: 4
+            },
+            5: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Extra Attack",
+                        description: "Attack twice when you take the Attack action"
+                    },
+                    {
+                        name: "Tactical Shift",
+                        description: "Move up to half Speed without provoking Opportunity Attacks when using Second Wind"
+                    }
+                ],
+                secondWind: 3,
+                weaponMastery: 4
+            },
+            6: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                secondWind: 3,
+                weaponMastery: 4
+            },
+            7: {
+                proficiencyBonus: 3,
+                subclassFeatures: {
+                    champion: [
+                        {
+                            name: "Additional Fighting Style",
+                            description: "Gain another Fighting Style feat",
+                            choices: {
+                                type: "fightingStyle",
+                                options: ["Defense", "Dueling", "Great Weapon Fighting", "Protection", "Archery", "Two-Weapon Fighting"]
+                            }
+                        }
+                    ]
+                },
+                secondWind: 3,
+                weaponMastery: 4
+            },
+            8: {
+                proficiencyBonus: 3,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                secondWind: 3,
+                weaponMastery: 4
+            },
+            9: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Indomitable",
+                        description: "Reroll a failed saving throw with bonus equal to Fighter level, 1 use per Long Rest"
+                    },
+                    {
+                        name: "Tactical Master",
+                        description: "Replace weapon mastery property with Push, Sap, or Slow for one attack"
+                    }
+                ],
+                secondWind: 3,
+                weaponMastery: 4
+            },
+            10: {
+                proficiencyBonus: 4,
+                subclassFeatures: {
+                    champion: [
+                        {
+                            name: "Heroic Warrior",
+                            description: "Gain Heroic Inspiration at start of turn during combat if you don't have it"
+                        }
+                    ]
+                },
+                secondWind: 4,
+                weaponMastery: 5
+            },
+            11: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Two Extra Attacks",
+                        description: "Attack three times when you take the Attack action"
+                    }
+                ],
+                secondWind: 4,
+                weaponMastery: 5
+            },
+            12: {
+                proficiencyBonus: 4,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                secondWind: 4,
+                weaponMastery: 5
+            },
+            13: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Indomitable (2 uses)",
+                        description: "Use Indomitable twice per Long Rest"
+                    },
+                    {
+                        name: "Studied Attacks",
+                        description: "Gain Advantage on next attack against a creature you missed"
+                    }
+                ],
+                secondWind: 4,
+                weaponMastery: 5
+            },
+            14: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                secondWind: 4,
+                weaponMastery: 5
+            },
+            15: {
+                proficiencyBonus: 5,
+                subclassFeatures: {
+                    champion: [
+                        {
+                            name: "Superior Critical",
+                            description: "Critical hits on 18-20 with weapons and Unarmed Strikes"
+                        }
+                    ]
+                },
+                secondWind: 4,
+                weaponMastery: 5
+            },
+            16: {
+                proficiencyBonus: 5,
+                features: [
+                    {
+                        name: "Ability Score Improvement",
+                        description: "Increase ability scores or gain a feat",
+                        choices: {
+                            type: "asiOrFeat",
+                            options: ["Ability Score Improvement", "Feat"]
+                        }
+                    }
+                ],
+                secondWind: 4,
+                weaponMastery: 6
+            },
+            17: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Action Surge (2 uses)",
+                        description: "Use Action Surge twice per Short/Long Rest"
+                    },
+                    {
+                        name: "Indomitable (3 uses)",
+                        description: "Use Indomitable three times per Long Rest"
+                    }
+                ],
+                secondWind: 4,
+                weaponMastery: 6
+            },
+            18: {
+                proficiencyBonus: 6,
+                subclassFeatures: {
+                    champion: [
+                        {
+                            name: "Survivor",
+                            description: "Advantage on Death Saves; regain 5 + Con modifier HP at start of turn when Bloodied"
+                        }
+                    ]
+                },
+                secondWind: 4,
+                weaponMastery: 6
+            },
+            19: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Epic Boon",
+                        description: "Gain an Epic Boon feat",
+                        choices: {
+                            type: "epicBoon",
+                            options: ["Boon of Combat Prowess", "Other Epic Boon"]
+                        }
+                    }
+                ],
+                secondWind: 4,
+                weaponMastery: 6
+            },
+            20: {
+                proficiencyBonus: 6,
+                features: [
+                    {
+                        name: "Three Extra Attacks",
+                        description: "Attack four times when you take the Attack action"
+                    }
+                ],
+                secondWind: 4,
+                weaponMastery: 6
+            }
+        }
     },
 
     monk: {
