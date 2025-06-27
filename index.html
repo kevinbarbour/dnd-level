@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D 5e 2024 Level-Up Tool</title>
+    <meta name="description" content="Character leveling tool for D&D 5th Edition 2024 rules">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">⚔️ D&D 5e 2024 Level-Up Tool ⚔️</h1>
+            <p class="subtitle">Chart your character's path to power</p>
+        </header>
+
+        <main class="main-content">
+            <section class="character-setup">
+                <div class="setup-card">
+                    <h2>📜 Character Information</h2>
+                    <div class="form-group">
+                        <label for="class-select">Choose Your Class:</label>
+                        <select id="class-select" class="form-control">
+                            <option value="">Select a class...</option>
+                            <option value="barbarian">Barbarian (Fully Available)</option>
+                            <option value="bard">Bard (Coming Soon)</option>
+                            <option value="cleric">Cleric (Coming Soon)</option>
+                            <option value="druid">Druid (Coming Soon)</option>
+                            <option value="fighter">Fighter (Coming Soon)</option>
+                            <option value="monk">Monk (Coming Soon)</option>
+                            <option value="paladin">Paladin (Coming Soon)</option>
+                            <option value="ranger">Ranger (Coming Soon)</option>
+                            <option value="rogue">Rogue (Coming Soon)</option>
+                            <option value="sorcerer">Sorcerer (Coming Soon)</option>
+                            <option value="warlock">Warlock (Coming Soon)</option>
+                            <option value="wizard">Wizard (Coming Soon)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="current-level">Current Level:</label>
+                        <input type="number" id="current-level" class="form-control" min="1" max="19" placeholder="Enter level 1-19">
+                    </div>
+                    <button id="calculate-btn" class="btn btn-primary" disabled>🔮 Calculate Level-Up Choices</button>
+                </div>
+            </section>
+
+            <section id="level-up-section" class="level-up-section hidden">
+                <div class="level-up-card">
+                    <div class="level-header">
+                        <h2 id="level-title">Level Up!</h2>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div id="progress-fill" class="progress-fill"></div>
+                            </div>
+                            <span id="progress-text" class="progress-text">0% Complete</span>
+                        </div>
+                    </div>
+
+                    <div id="level-content" class="level-content">
+                        <!-- Dynamic content will be inserted here -->
+                    </div>
+
+                    <div class="action-buttons">
+                        <button id="save-progress-btn" class="btn btn-secondary">💾 Save Progress</button>
+                        <button id="export-btn" class="btn btn-success" disabled>📋 Export Summary</button>
+                        <button id="reset-btn" class="btn btn-danger">🔄 Reset</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="export-section" class="export-section hidden">
+                <div class="export-card">
+                    <h2>📋 Level-Up Summary</h2>
+                    <div id="export-content" class="export-content">
+                        <!-- Export summary will be generated here -->
+                    </div>
+                    <button id="copy-summary-btn" class="btn btn-primary">📄 Copy to Clipboard</button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>🏰 Built for D&D 5th Edition 2024 Rules • <a href="https://github.com" target="_blank">View on GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="js/classData.js"></script>
+    <script src="js/levelCalculator.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
