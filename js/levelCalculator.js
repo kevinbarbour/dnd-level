@@ -344,6 +344,11 @@ class LevelCalculator {
     getEpicBoons() {
         return epicBoons;
     }
+
+    // Get available feats
+    getFeats() {
+        return feats;
+    }
 }
 
 // Create global instance

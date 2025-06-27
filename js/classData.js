@@ -4027,6 +4027,210 @@ const epicBoons = [
     "Boon of Truesight"
 ];
 
+// D&D 5e 2024 Feats
+const feats = [
+    {
+        name: "Alert",
+        description: "Always ready for danger. +5 to Initiative, can't be surprised while conscious."
+    },
+    {
+        name: "Athlete",
+        description: "Physically exceptional. Climbing and swimming don't cost extra movement, standing from prone costs only 5 feet."
+    },
+    {
+        name: "Actor",
+        description: "Skilled at mimicry and dramatics. Advantage on Deception and Performance checks when trying to pass yourself off as someone else."
+    },
+    {
+        name: "Charger",
+        description: "Devastating when charging into battle. After Dash action, make one melee attack or shove as bonus action."
+    },
+    {
+        name: "Chef",
+        description: "Master of cuisine and cooking. Cook special food during rests to provide temporary HP and other benefits."
+    },
+    {
+        name: "Crossbow Expert",
+        description: "Expert with crossbows. Ignore loading property, no disadvantage in melee, bonus action hand crossbow attack."
+    },
+    {
+        name: "Crusher",
+        description: "Master of bludgeoning damage. Move creatures when you deal bludgeoning damage, critical hits give allies advantage."
+    },
+    {
+        name: "Defensive Duelist",
+        description: "Skilled at parrying attacks. Use reaction to add proficiency bonus to AC against one melee attack."
+    },
+    {
+        name: "Dual Wielder",
+        description: "Master of fighting with two weapons. +1 AC while dual wielding, can use two-weapon fighting with non-light weapons."
+    },
+    {
+        name: "Dungeon Delver",
+        description: "Experienced in underground exploration. Advantage on Perception and Investigation for secret doors, resistance to trap damage."
+    },
+    {
+        name: "Durable",
+        description: "Hardy and resilient. Regain additional HP when you roll Hit Dice to recover HP."
+    },
+    {
+        name: "Elemental Adept",
+        description: "Deep understanding of elemental magic. Choose damage type: ignore resistance, treat 1s as 2s on damage dice."
+    },
+    {
+        name: "Fey Touched",
+        description: "Touched by fey magic. Learn Misty Step and one 1st-level spell, cast each once per long rest."
+    },
+    {
+        name: "Fighting Initiate",
+        description: "Trained in a particular fighting style. Learn one Fighting Style feat of your choice."
+    },
+    {
+        name: "Great Weapon Master",
+        description: "Master of large weapons. Bonus action attack on critical hit or reducing creature to 0 HP, -5/+10 power attack option."
+    },
+    {
+        name: "Healer",
+        description: "Skilled at healing others. Use healer's kit to restore HP, stabilize dying creatures more effectively."
+    },
+    {
+        name: "Heavy Armor Master",
+        description: "Trained to master heavy armor. Reduce bludgeoning, piercing, and slashing damage by 3 while wearing heavy armor."
+    },
+    {
+        name: "Inspiring Leader",
+        description: "Natural leader who inspires others. Give temporary HP to allies equal to your level + Charisma modifier."
+    },
+    {
+        name: "Keen Mind",
+        description: "Exceptional memory and reasoning. Always know which way is north, what time it is, and can recall anything from the past month."
+    },
+    {
+        name: "Lightly Armored",
+        description: "Trained in light armor use. Gain proficiency with light armor and shields."
+    },
+    {
+        name: "Lucky",
+        description: "Inexplicably fortunate. Reroll three d20s per long rest, choose which result to use."
+    },
+    {
+        name: "Mage Slayer",
+        description: "Trained to fight spellcasters. Opportunity attacks against spellcasters, advantage on saves against spells at close range."
+    },
+    {
+        name: "Magic Initiate",
+        description: "Learned basic magic. Choose a class: learn 2 cantrips and 1 1st-level spell, cast the spell once per long rest."
+    },
+    {
+        name: "Martial Adept",
+        description: "Studied martial techniques. Learn 2 maneuvers from Battle Master fighter, gain 1 superiority die."
+    },
+    {
+        name: "Medium Armor Master",
+        description: "Master of medium armor. No disadvantage on Stealth in medium armor, +3 max Dex bonus instead of +2."
+    },
+    {
+        name: "Metamagic Adept",
+        description: "Studied sorcerous magic. Learn 2 Metamagic options, gain 2 sorcery points."
+    },
+    {
+        name: "Mobile",
+        description: "Exceptionally speedy and agile. +10 speed, no opportunity attacks from creatures you've attacked, ignore difficult terrain when dashing."
+    },
+    {
+        name: "Moderately Armored",
+        description: "Trained in armor use. Gain proficiency with medium armor and shields."
+    },
+    {
+        name: "Mounted Combatant",
+        description: "Skilled at fighting while mounted. Advantage on attacks against unmounted creatures, redirect attacks from mount to you."
+    },
+    {
+        name: "Observant",
+        description: "Quick to notice details. +5 bonus to passive Perception and Investigation, can read lips if you know the language."
+    },
+    {
+        name: "Piercer",
+        description: "Master of piercing damage. Reroll one damage die per turn, critical hits deal extra damage die."
+    },
+    {
+        name: "Poisoner",
+        description: "Expert with poisons. Proficiency with poisoner's kit, ignore poison resistance, apply poison as bonus action."
+    },
+    {
+        name: "Polearm Master",
+        description: "Master of polearms. Bonus action attack with opposite end, opportunity attacks when creatures enter reach."
+    },
+    {
+        name: "Resilient",
+        description: "Developed resilience. Choose an ability score: gain proficiency in that saving throw, increase the score by 1."
+    },
+    {
+        name: "Ritual Caster",
+        description: "Learned to cast ritual spells. Choose a class: learn 2 ritual spells, can learn more by finding them."
+    },
+    {
+        name: "Savage Attacker",
+        description: "Brutal in combat. Reroll weapon damage dice once per turn, use either result."
+    },
+    {
+        name: "Sentinel",
+        description: "Master of opportunity attacks. Opportunity attacks stop movement, attack when allies are attacked nearby."
+    },
+    {
+        name: "Shadow Touched",
+        description: "Touched by shadow magic. Learn Invisibility and one 1st-level spell, cast each once per long rest."
+    },
+    {
+        name: "Sharpshooter",
+        description: "Master of ranged combat. No disadvantage at long range, ignore cover, -5/+10 power attack option."
+    },
+    {
+        name: "Shield Master",
+        description: "Expert with shields. Bonus action shove with shield, add shield AC to Dex saves, no damage on successful Dex save."
+    },
+    {
+        name: "Skill Expert",
+        description: "Developed expertise in skills. Gain proficiency in one skill, expertise in one skill, increase one ability score by 1."
+    },
+    {
+        name: "Skilled",
+        description: "Talented in many areas. Gain proficiency in any combination of 3 skills or tools."
+    },
+    {
+        name: "Skulker",
+        description: "Expert at hiding and sniping. Hide when lightly obscured, no disadvantage on Perception in dim light, missing with ranged attack doesn't reveal position."
+    },
+    {
+        name: "Slasher",
+        description: "Master of slashing damage. Reduce target's speed, critical hits impose disadvantage on attacks."
+    },
+    {
+        name: "Spell Sniper",
+        description: "Expert at casting spells at range. Double spell range, ignore cover, learn one cantrip."
+    },
+    {
+        name: "Telekinetic",
+        description: "Learned to move things with your mind. Mage Hand cantrip, bonus action shove with telekinesis."
+    },
+    {
+        name: "Telepathic",
+        description: "Awakened telepathic abilities. Detect thoughts once per long rest, telepathic communication."
+    },
+    {
+        name: "Tough",
+        description: "Exceptionally hardy. +2 HP per level (including previous levels)."
+    },
+    {
+        name: "War Caster",
+        description: "Practiced at casting in armor. Advantage on Constitution saves for concentration, cast spells as opportunity attacks, perform somatic components with hands full."
+    },
+    {
+        name: "Weapon Master",
+        description: "Trained with various weapons. Gain proficiency with 4 weapons of your choice, increase Strength or Dexterity by 1."
+    }
+];
+
 // Export for use in other files
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { classData, weaponMasteryProperties, epicBoons };

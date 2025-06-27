@@ -388,18 +388,41 @@ class DnDLevelUpApp {
         html += '<ul class="choice-list">';
         
         choice.options.forEach(option => {
-            const description = option === 'Ability Score Improvement' 
-                ? 'Increase one ability score by 2, or two ability scores by 1 each'
-                : 'Gain a feat of your choice';
-            
-            html += `
-                <li>
-                    <strong>${option}:</strong> ${description}
-                </li>
-            `;
+            if (option === 'Ability Score Improvement') {
+                html += `
+                    <li>
+                        <strong>${option}:</strong> Increase one ability score by 2, or two ability scores by 1 each
+                    </li>
+                `;
+            } else if (option === 'Feat') {
+                html += `
+                    <li>
+                        <strong>${option}:</strong> Gain a feat of your choice
+                    </li>
+                `;
+            }
         });
         
-        html += '</ul></div>';
+        html += '</ul>';
+        
+        // Add feat list if "Feat" is an option
+        if (choice.options.includes('Feat')) {
+            html += '<h4>Available Feats:</h4>';
+            html += '<div class="feat-list">';
+            
+            const feats = levelCalculator.getFeats();
+            feats.forEach(feat => {
+                html += `
+                    <div class="feat-item">
+                        <strong>${feat.name}:</strong> ${feat.description}
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+        }
+        
+        html += '</div>';
         return html;
     }
 
